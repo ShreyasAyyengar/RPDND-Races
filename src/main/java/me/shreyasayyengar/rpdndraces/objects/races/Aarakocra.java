@@ -1,21 +1,22 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 import java.util.UUID;
 
-public class Aarakocra extends AbstractRace {
+public class Aarakocra extends AbstractRace implements RequiredSetup {
 
     public Aarakocra(UUID uuid) {
         super(uuid);
@@ -23,7 +24,6 @@ public class Aarakocra extends AbstractRace {
 
     @Override
     public void setupPlayer() {
-
         runUnsafeActions(() -> {
             Utils.setElytra(player);
 
@@ -46,32 +46,16 @@ public class Aarakocra extends AbstractRace {
                     break;
                 }
             }
-
         });
     }
 
     @Override
     public void onSwap() {
-
-        if (checkCooldown()) {
-
-            if (player.isGliding()) {
-                player.setVelocity(player.getEyeLocation().getDirection().normalize().multiply(3.5));
-            } else {
-                player.setVelocity(player.getVelocity().add(new Vector(0, 3, 0)));
-            }
-
-            setCooldown();
+        if (player.isGliding()) {
+            player.setVelocity(player.getEyeLocation().getDirection().normalize().multiply(3.5));
+        } else {
+            player.setVelocity(player.getVelocity().add(new Vector(0, 3, 0)));
         }
-    }
-
-    @Override
-    public void activatePassiveAbilities() {
-    }
-
-    @Override
-    public BukkitTask getTask() {
-        return null;
     }
 
     @Override
@@ -81,6 +65,11 @@ public class Aarakocra extends AbstractRace {
     @Override
     public int getRaceCooldown() {
         return 20;
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 
     @Override

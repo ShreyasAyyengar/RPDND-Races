@@ -1,7 +1,7 @@
 package me.shreyasayyengar.rpdndraces.events;
 
-import me.shreyasayyengar.rpdndraces.objects.UnsafeRace;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,11 +19,10 @@ public class Leave implements Listener {
         if (RaceManager.hasRace(uuid)) {
 
             AbstractRace race = RaceManager.getRace(uuid);
-            if (race instanceof UnsafeRace unsafeRace) {
-                unsafeRace.handleNullability();
-            }
 
-            race.getTask().cancel();
+            if (race instanceof TaskedRace) {
+                race.getRegisteredTask().cancel();
+            }
         }
     }
 }

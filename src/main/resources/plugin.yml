@@ -1,7 +1,7 @@
 name: RPDNDRaces
 version: '${project.version}'
 main: me.shreyasayyengar.rpdndraces.RacesPlugin
-api-version: 1.18
+api-version: 1.13
 prefix: RPDNDRaces
 author: Shreyas Ayyengar
 

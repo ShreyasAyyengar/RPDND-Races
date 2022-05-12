@@ -3,11 +3,11 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.UUID;
 
@@ -18,15 +18,8 @@ public class Dragonborn extends AbstractRace {
     }
 
     @Override
-    public void setupPlayer() {
-    }
-
-    @Override
     public void onSwap() {
-        if (checkCooldown()) {
-            createParticles();
-            setCooldown();
-        }
+        createParticles();
     }
 
     private void createParticles() {
@@ -41,26 +34,16 @@ public class Dragonborn extends AbstractRace {
                 player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
                 loc.subtract(x, y, z);
                 // final circle
-                for (double Radius = 1; Radius >= 0; Radius -= 0.1) {
-                    double x2 = Math.cos(angle) * Radius;
+                for (double radius = 1; radius >= 0; radius -= 0.1) {
+                    double x2 = 1.5 * (Math.cos(angle) * radius);
                     double y2 = 1; // Max y of the cone
-                    double z2 = Math.sin(angle) * Radius;
+                    double z2 = 1.5 * (Math.sin(angle) * radius);
                     loc.add(x2, y2, z2);
                     player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
                     loc.subtract(x2, y2, z2);
                 }
             }
         }
-    }
-
-    @Override
-    public void activatePassiveAbilities() {
-
-    }
-
-    @Override
-    public BukkitTask getTask() {
-        return null;
     }
 
     @Override
@@ -78,14 +61,20 @@ public class Dragonborn extends AbstractRace {
         return 10;
     }
 
+    @Override
+    public Sound getSound() {
+        return null;
+    }
+
     @EventHandler
     private void onEntityDamage(EntityDamageEvent event) {
 
         if (event.getEntityType() == EntityType.PLAYER) {
             Player player = (Player) event.getEntity();
             if (isThisRace(player)) {
-                if (event.getCause() == EntityDamageEvent.DamageCause.THORNS) {
-                    event.setCancelled(true);
+
+                switch (event.getCause()) {
+                    case CONTACT, FIRE, FIRE_TICK, LAVA -> event.setCancelled(true);
                 }
             }
         }

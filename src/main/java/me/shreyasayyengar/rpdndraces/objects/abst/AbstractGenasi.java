@@ -1,17 +1,16 @@
-package me.shreyasayyengar.rpdndraces.objects.races.genasi;
+package me.shreyasayyengar.rpdndraces.objects.abst;
 
-import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.Collection;
 import java.util.UUID;
 
-public abstract class AbstractGenasi extends AbstractRace {
+public abstract class AbstractGenasi extends AbstractRace implements PassiveAbilities {
 
     public AbstractGenasi(UUID uuid) {
         super(uuid);
@@ -21,19 +20,9 @@ public abstract class AbstractGenasi extends AbstractRace {
     public void activatePassiveAbilities() {
         runUnsafeActions(() -> {
             if (canWaterBreath()) {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.WATER_BREATHING, 1000000, 1, false, false, false));
+                RaceUtils.addPotionEffect(player, PotionEffectType.WATER_BREATHING, 1000000, 1);
             }
         });
-    }
-
-    @Override
-    public BukkitTask getTask() {
-        return null;
-    }
-
-    @Override
-    public String getName() {
-        return null;
     }
 
     @Override
@@ -43,6 +32,11 @@ public abstract class AbstractGenasi extends AbstractRace {
     @Override
     public int getRaceCooldown() {
         return 120;
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 
     public abstract Collection<EntityDamageEvent.DamageCause> getImmuneDamageCauses();

@@ -1,11 +1,12 @@
 package me.shreyasayyengar.rpdndraces.objects.abst;
 
-import org.bukkit.potion.PotionEffect;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
+import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.UUID;
 
-public abstract class AbstractElf extends AbstractRace {
+public abstract class AbstractElf extends AbstractRace implements PassiveAbilities {
 
     public AbstractElf(UUID uuid) {
         super(uuid);
@@ -13,6 +14,11 @@ public abstract class AbstractElf extends AbstractRace {
 
     @Override
     public void activatePassiveAbilities() {
-        player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1000000, 255));
+        RaceUtils.addPotionEffect(player, PotionEffectType.NIGHT_VISION, 1000000, 255);
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 }

@@ -1,9 +1,8 @@
-package me.shreyasayyengar.rpdndraces.objects.races.elf;
+package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractElf;
-import org.bukkit.potion.PotionEffect;
+import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.UUID;
 
@@ -14,20 +13,8 @@ public class ElfWood extends AbstractElf {
     }
 
     @Override
-    public void setupPlayer() {
-    }
-
-    @Override
     public void onSwap() {
-        if (checkCooldown()) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 15, 10));
-            setCooldown();
-        }
-    }
-
-    @Override
-    public BukkitTask getTask() {
-        return null;
+        RaceUtils.addPotionEffect(player, PotionEffectType.INVISIBILITY, 15, 10);
     }
 
     @Override
@@ -42,5 +29,10 @@ public class ElfWood extends AbstractElf {
     @Override
     public int getRaceCooldown() {
         return 30;
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 }

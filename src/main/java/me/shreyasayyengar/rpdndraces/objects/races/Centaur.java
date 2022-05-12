@@ -2,11 +2,9 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
-import me.shreyasayyengar.rpdndraces.utils.Utils;
-import org.bukkit.potion.PotionEffect;
+import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.UUID;
 
@@ -17,34 +15,16 @@ public class Centaur extends AbstractRace {
     }
 
     @Override
-    public void setupPlayer() {
-    }
-
-    @Override
     public void onSwap() {
-        if (isOnCooldown()) {
-            player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou are currently on cooldown! (" + cooldownTime + "s)"));
-            return;
-        }
-
-        player.getEyeLocation().toVector().multiply(0.4);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 3, 10));
+        RaceUtils.boostForward(player, 3);
+        RaceUtils.addPotionEffect(player, PotionEffectType.SPEED, 3, 10);
 
         new BukkitRunnable() {
             @Override
             public void run() {
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 15, 2));
+                RaceUtils.addPotionEffect(player, PotionEffectType.SPEED, 15, 2);
             }
         }.runTaskLater(RacesPlugin.getInstance(), 3 * 20);
-    }
-
-    @Override
-    public void activatePassiveAbilities() {
-    }
-
-    @Override
-    public BukkitTask getTask() {
-        return null;
     }
 
     @Override
@@ -59,5 +39,10 @@ public class Centaur extends AbstractRace {
     @Override
     public int getRaceCooldown() {
         return 25;
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 }

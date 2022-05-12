@@ -1,31 +1,22 @@
-package me.shreyasayyengar.rpdndraces.objects.races.aasimar;
+package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractAasimar;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
+import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.UUID;
 
-public class AasimarFallen extends AbstractAasimar {
+public class AasimarProtector extends AbstractAasimar {
 
-    public AasimarFallen(UUID uuid) {
+    public AasimarProtector(UUID uuid) {
         super(uuid);
     }
 
     @Override
-    public void setupPlayer() {
-    }
-
-
-    @Override
     public void onSwap() {
-        if (isOnCooldown()) {
-            player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou are currently on cooldown! (" + cooldownTime + "s)"));
-            return;
-        }
-
         Utils.setElytra(player);
         player.setVelocity(player.getVelocity().add(new Vector(0, 4.5, 0)));
         new BukkitRunnable() {
@@ -37,12 +28,8 @@ public class AasimarFallen extends AbstractAasimar {
     }
 
     @Override
-    public void activatePassiveAbilities() {
-    }
-
-    @Override
     public String getName() {
-        return "Aasimar-Fallen";
+        return "Aasimar-Protector";
     }
 
     @Override
@@ -52,5 +39,10 @@ public class AasimarFallen extends AbstractAasimar {
     @Override
     public int getRaceCooldown() {
         return 120;
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 }

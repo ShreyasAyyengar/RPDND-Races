@@ -37,10 +37,8 @@ public interface MenuDisplay {
      */
     @NotNull Map<Integer, MenuItem> getContents();
 
-    // TODO: 2022-01-21
     @NotNull Optional<MenuCloseCallback> getCloseCallback();
 
-    // TODO: 2022-01-21
     void decorate(@NotNull String... lines);
 
     /**

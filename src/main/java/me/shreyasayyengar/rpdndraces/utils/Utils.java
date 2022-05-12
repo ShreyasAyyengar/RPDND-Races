@@ -15,7 +15,6 @@ public class Utils {
         return ChatColor.translateAlternateColorCodes('&', message);
     }
 
-
     public static void setElytra(Player player) {
         ItemStack itemStack = new ItemStack(Material.ELYTRA);
         ItemMeta itemMeta = itemStack.getItemMeta();

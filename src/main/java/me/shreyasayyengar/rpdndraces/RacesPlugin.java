@@ -39,6 +39,7 @@ public final class RacesPlugin extends JavaPlugin {
 
         loadRaces();
         AbstractRace.startTask();
+
     }
 
     @Override
@@ -76,7 +77,6 @@ public final class RacesPlugin extends JavaPlugin {
     }
 
     private void loadRaces() {
-
         try {
             RaceManager.readFromSQL();
         } catch (SQLException e) {

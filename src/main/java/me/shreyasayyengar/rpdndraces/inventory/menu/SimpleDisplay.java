@@ -30,7 +30,6 @@ public class SimpleDisplay implements MenuDisplay {
 
     @Override
     public @NotNull Optional<MenuCloseCallback> getCloseCallback() {
-        /// TODO: 2022-01-21  
         return Optional.empty();
     }
 

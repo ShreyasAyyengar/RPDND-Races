@@ -1,8 +1,7 @@
-package me.shreyasayyengar.rpdndraces.objects.races.elf;
+package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractElf;
-import me.shreyasayyengar.rpdndraces.utils.RaceUtils;
-import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.Sound;
 
 import java.util.UUID;
 
@@ -13,21 +12,8 @@ public class ElfShadarKai extends AbstractElf {
     }
 
     @Override
-    public void setupPlayer() {
-    }
-
-    @Override
     public void onSwap() {
-        if (checkCooldown()) {
-            RaceUtils.boostForward(player, 10);
-
-            setCooldown();
-        }
-    }
-
-    @Override
-    public BukkitTask getTask() {
-        return null;
+        RaceUtils.boostForward(player, 10);
     }
 
     @Override
@@ -42,5 +28,10 @@ public class ElfShadarKai extends AbstractElf {
     @Override
     public int getRaceCooldown() {
         return 10;
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 }

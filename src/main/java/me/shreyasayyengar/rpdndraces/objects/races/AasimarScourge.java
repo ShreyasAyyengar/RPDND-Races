@@ -1,11 +1,12 @@
-package me.shreyasayyengar.rpdndraces.objects.races.aasimar;
+package me.shreyasayyengar.rpdndraces.objects.races;
 
-import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractAasimar;
-import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
+import org.bukkit.entity.Animals;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 
 import java.util.UUID;
@@ -16,8 +17,8 @@ public class AasimarScourge extends AbstractAasimar {
         super(uuid);
     }
 
-    private void spawnCircleParticle(Monster monster, Color color) {
-        Location location = monster.getLocation();
+    private void spawnCircleParticle(LivingEntity livingEntity, Color color) {
+        Location location = livingEntity.getLocation();
         for (int degree = 0; degree < 360; degree++) {
             double radians = Math.toRadians(degree);
             double x = Math.cos(radians);
@@ -29,28 +30,22 @@ public class AasimarScourge extends AbstractAasimar {
     }
 
     @Override
-    public void setupPlayer() {
-    }
-
-    @Override
     public void onSwap() {
-        if (isOnCooldown()) {
-            player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou are currently on cooldown! (" + cooldownTime + "s)"));
-            return;
-        }
-
         player.getLocation().getNearbyLivingEntities(5).forEach(livingEntity -> {
+            if (livingEntity instanceof Animals animal) {
+                switch (animal.getType()) {
+                    case COW, CHICKEN, PIG -> {
+                        spawnCircleParticle(animal, Color.fromBGR(0, 0, 181));
+                        animal.setHealth(0);
+                    }
+                }
+            }
+
             if (livingEntity instanceof Monster monster) {
                 spawnCircleParticle(monster, Color.fromBGR(0, 0, 181));
                 monster.setHealth(0);
             }
         });
-
-        setCooldown();
-    }
-
-    @Override
-    public void activatePassiveAbilities() {
     }
 
     @Override
@@ -65,5 +60,10 @@ public class AasimarScourge extends AbstractAasimar {
     @Override
     public int getRaceCooldown() {
         return 180;
+    }
+
+    @Override
+    public Sound getSound() {
+        return null;
     }
 }
