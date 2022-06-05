@@ -4,9 +4,19 @@ import me.shreyasayyengar.rpdndraces.objects.abst.AbstractElf;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ElfWood extends AbstractElf {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("Often described as the definition of grace and poise, they are agile and deadly hunters.");
+        List<String> active = List.of("Forest Stealth");
+        List<String> passive = List.of("Nightvision");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public ElfWood(UUID uuid) {
         super(uuid);
@@ -23,7 +33,7 @@ public class ElfWood extends AbstractElf {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

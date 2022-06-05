@@ -4,9 +4,19 @@ import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Dwarf extends AbstractRace {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("As durable as the mountains they live within, these squat, ", "hairy creatures know the earth like no other race.");
+        List<String> active = List.of("Mine Life");
+        List<String> passive = List.of("");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     private boolean nightVision = false;
 
@@ -35,7 +45,7 @@ public class Dwarf extends AbstractRace {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

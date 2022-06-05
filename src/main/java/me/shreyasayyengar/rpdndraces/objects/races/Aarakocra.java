@@ -1,6 +1,7 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
@@ -14,9 +15,19 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import java.util.List;
 import java.util.UUID;
 
-public class Aarakocra extends AbstractRace implements RequiredSetup {
+public class Aarakocra extends AbstractRace implements RequiredSetup, InventoryRequirement {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("Sequestered in high mountains atop tall trees, these", "these bird-like folk evoke both fear and wonder.");
+        List<String> active = List.of("Take Flight", "Wind Ride");
+        List<String> passive = List.of("Natural Weapon");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public Aarakocra(UUID uuid) {
         super(uuid);
@@ -59,7 +70,7 @@ public class Aarakocra extends AbstractRace implements RequiredSetup {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

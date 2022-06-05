@@ -35,6 +35,5 @@ public class SimpleDisplay implements MenuDisplay {
 
     @Override
     public void decorate(@NotNull String... lines) {
-        /// TODO: 2022-01-21  
     }
 }

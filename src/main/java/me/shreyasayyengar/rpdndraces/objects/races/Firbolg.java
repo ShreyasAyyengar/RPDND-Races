@@ -4,9 +4,19 @@ import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Firbolg extends AbstractRace {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("A reclusive race of Giant-kin. They are the most intelligent ", "and powerful of the Giant-kin.");
+        List<String> active = List.of("Hidden Step");
+        List<String> passive = List.of();
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     private boolean nightVision = false;
 
@@ -35,7 +45,7 @@ public class Firbolg extends AbstractRace {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

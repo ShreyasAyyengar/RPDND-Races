@@ -8,9 +8,19 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ElfDrow extends AbstractElf {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("Often described as the definition of grace and poise, they are agile and deadly hunters.");
+        List<String> active = List.of("Darkness");
+        List<String> passive = List.of("Nightvision");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public ElfDrow(UUID uuid) {
         super(uuid);
@@ -57,7 +67,7 @@ public class ElfDrow extends AbstractElf {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

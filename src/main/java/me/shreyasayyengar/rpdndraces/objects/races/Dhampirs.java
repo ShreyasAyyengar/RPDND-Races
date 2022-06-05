@@ -9,9 +9,19 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Dhampirs extends AbstractRace implements PassiveAbilities {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("Standing between life and death. While maintaining life they", "have a vicious craving and hunger.");
+        List<String> active = List.of("Rapid Energy", "Blood Diet");
+        List<String> passive = List.of("Nightvision");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public Dhampirs(UUID uuid) {
         super(uuid);
@@ -34,7 +44,7 @@ public class Dhampirs extends AbstractRace implements PassiveAbilities {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

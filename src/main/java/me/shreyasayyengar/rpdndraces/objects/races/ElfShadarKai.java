@@ -3,9 +3,19 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractElf;
 import org.bukkit.Sound;
 
+import java.util.List;
 import java.util.UUID;
 
 public class ElfShadarKai extends AbstractElf {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("Often described as the definition of grace and poise, they are agile and deadly hunters.");
+        List<String> active = List.of("Shadow Walk");
+        List<String> passive = List.of("Nightvision");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public ElfShadarKai(UUID uuid) {
         super(uuid);
@@ -13,7 +23,7 @@ public class ElfShadarKai extends AbstractElf {
 
     @Override
     public void onSwap() {
-        RaceUtils.boostForward(player, 10);
+        RaceUtils.teleportForward(player, 10);
     }
 
     @Override
@@ -22,7 +32,7 @@ public class ElfShadarKai extends AbstractElf {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

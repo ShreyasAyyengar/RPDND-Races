@@ -1,14 +1,21 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractElf;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Sound;
 
+import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ElfHigh extends AbstractElf {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("Often described as the definition of grace and poise, they are agile and deadly hunters.");
+        List<String> active = List.of("Perception");
+        List<String> passive = List.of("Nightvision");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public ElfHigh(UUID uuid) {
         super(uuid);
@@ -16,15 +23,7 @@ public class ElfHigh extends AbstractElf {
 
     @Override
     public void onSwap() {
-
-        AtomicInteger number = new AtomicInteger();
-        player.getLocation().getNearbyPlayers(30).forEach(p -> {
-            if (player.canSee(p)) {
-                number.getAndIncrement();
-            }
-        });
-
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§o§cThere are §b" + (number.get() - 1) + "§c players nearby!"));
+        RaceUtils.getPerception(player);
     }
 
     @Override
@@ -33,7 +32,7 @@ public class ElfHigh extends AbstractElf {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
 
     }
 

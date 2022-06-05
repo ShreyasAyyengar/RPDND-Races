@@ -9,9 +9,19 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 
+import java.util.List;
 import java.util.UUID;
 
 public class Dragonborn extends AbstractRace {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("A humanoid draconic race native to Abeir. Strongly built, the ", "blood of dragons grant them gifts and the use of their breath weapon.");
+        List<String> active = List.of("Dragon's Breath");
+        List<String> passive = List.of("Scale Defense");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public Dragonborn(UUID uuid) {
         super(uuid);
@@ -27,16 +37,16 @@ public class Dragonborn extends AbstractRace {
         Location loc = player.getLocation();
         for (double numberofcircles = 0; numberofcircles <= 1; numberofcircles += 0.1) {
             for (double angle = 0; angle <= Math.PI * 2; angle += Math.PI / 8) {
-                double x = Math.cos(angle) * numberofcircles; // multiply the x by 1 then 1 gets smaller each time we increment numberofcircles by 0.1
-                double y = numberofcircles; // each circle has a distance of 0.1
-                double z = Math.sin(angle) * numberofcircles; // multiply the z by 1 then 1 gets smaller each time we increment numberofcircles by 0.1
+                double x = Math.cos(angle) * numberofcircles;
+                double y = numberofcircles;
+                double z = Math.sin(angle) * numberofcircles;
                 loc.add(x, y, z);
                 player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
                 loc.subtract(x, y, z);
                 // final circle
                 for (double radius = 1; radius >= 0; radius -= 0.1) {
                     double x2 = 1.5 * (Math.cos(angle) * radius);
-                    double y2 = 1; // Max y of the cone
+                    double y2 = 1;
                     double z2 = 1.5 * (Math.sin(angle) * radius);
                     loc.add(x2, y2, z2);
                     player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
@@ -52,7 +62,7 @@ public class Dragonborn extends AbstractRace {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
 
     }
 

@@ -1,6 +1,7 @@
 package me.shreyasayyengar.rpdndraces.events;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.Appetitless;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
@@ -41,6 +42,10 @@ public class Join implements Listener {
             if (race instanceof TaskedRace task) {
                 BukkitTask raceTask = task.getRaceTask();
                 race.setRegisteredTask(raceTask);
+            }
+
+            if (race instanceof Appetitless) {
+                player.setFoodLevel(20);
             }
 
 //            race.setupPlayer();

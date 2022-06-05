@@ -1,11 +1,9 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
-import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractGenasi;
 import org.bukkit.Sound;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.Collection;
 import java.util.List;
@@ -13,11 +11,20 @@ import java.util.UUID;
 
 public class GenasiWater extends AbstractGenasi {
 
+    private boolean nightVision = false;
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("The offspring of a Genie and a human, they carry the", "power of the elemental planes in their blood.");
+        List<String> active = List.of("Aquatics");
+        List<String> passive = List.of("Water Heritage");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
+
     public GenasiWater(UUID uuid) {
         super(uuid);
     }
-
-    private boolean nightVision = false;
 
     @Override
     public Collection<EntityDamageEvent.DamageCause> getImmuneDamageCauses() {
@@ -31,7 +38,7 @@ public class GenasiWater extends AbstractGenasi {
 
     @Override
     public void onSwap() {
-        RaceUtils.addPotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 3, 3);
+        RaceUtils.addPotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 6, 1);
         if (!nightVision) {
             RaceUtils.addPotionEffect(player, PotionEffectType.NIGHT_VISION, 3, 3);
             nightVision = true;
@@ -39,13 +46,6 @@ public class GenasiWater extends AbstractGenasi {
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
             nightVision = false;
         }
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                RaceUtils.addPotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 3, 1);
-            }
-        }.runTaskLater(RacesPlugin.getInstance(), 20 * 3);
     }
 
     @Override

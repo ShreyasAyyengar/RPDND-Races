@@ -26,7 +26,7 @@ public abstract class AbstractGenasi extends AbstractRace implements PassiveAbil
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override

@@ -17,6 +17,9 @@ public class HandSwap implements Listener {
             event.setCancelled(true);
 
             AbstractRace race = RaceManager.getRace(player.getUniqueId());
+
+            if (!race.isHandSwapEnabled()) return;
+
             if (race.checkCooldown()) {
                 race.onSwap();
                 race.setCooldown();

@@ -9,9 +9,20 @@ import org.bukkit.entity.Animals;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AasimarScourge extends AbstractAasimar {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("The descendents of humans marked by Celestials.", "They often champion the cause of their Celestial parent.");
+        List<String> active = List.of("Radiant Burst");
+        List<String> passive = List.of("Healing Hands");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public AasimarScourge(UUID uuid) {
         super(uuid);
@@ -31,12 +42,15 @@ public class AasimarScourge extends AbstractAasimar {
 
     @Override
     public void onSwap() {
+
+        AtomicBoolean success = new AtomicBoolean(false);
         player.getLocation().getNearbyLivingEntities(5).forEach(livingEntity -> {
             if (livingEntity instanceof Animals animal) {
                 switch (animal.getType()) {
                     case COW, CHICKEN, PIG -> {
                         spawnCircleParticle(animal, Color.fromBGR(0, 0, 181));
                         animal.setHealth(0);
+                        success.set(true);
                     }
                 }
             }
@@ -44,8 +58,13 @@ public class AasimarScourge extends AbstractAasimar {
             if (livingEntity instanceof Monster monster) {
                 spawnCircleParticle(monster, Color.fromBGR(0, 0, 181));
                 monster.setHealth(0);
+                success.set(true);
             }
         });
+
+        if (success.get()) {
+            player.getWorld().playSound(player.getLocation(), Sound.BLOCK_BEACON_POWER_SELECT, 1, 1);
+        }
     }
 
     @Override
@@ -54,7 +73,7 @@ public class AasimarScourge extends AbstractAasimar {
     }
 
     @Override
-    public void deactivate() {
+    public void onDisable() {
     }
 
     @Override
@@ -64,6 +83,6 @@ public class AasimarScourge extends AbstractAasimar {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.BLOCK_BEACON_POWER_SELECT;
     }
 }

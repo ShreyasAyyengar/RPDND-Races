@@ -24,6 +24,15 @@ public class GenasiFire extends AbstractGenasi implements TaskedRace {
     private final List<Location> lightedSources = new ArrayList<>();
     private boolean light = false;
 
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("The offspring of a Genie and a human, they carry the", "power of the elemental planes in their blood.");
+        List<String> active = List.of("Firey Light");
+        List<String> passive = List.of("Fire Heritage");
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
+
     public GenasiFire(UUID uuid) {
         super(uuid);
     }

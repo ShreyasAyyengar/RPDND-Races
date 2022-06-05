@@ -18,7 +18,8 @@ public class TestCommand implements CommandExecutor {
                 String arg = args[0];
 
                 try {
-                    Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + arg).getDeclaredConstructor(UUID.class).newInstance(player.getUniqueId());
+                    Class<?> subClasses = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + arg);
+                    subClasses.getDeclaredConstructor(UUID.class).newInstance(player.getUniqueId());
                 } catch (ClassNotFoundException | InvocationTargetException | InstantiationException |
                          IllegalAccessException | NoSuchMethodException e) {
                     throw new RuntimeException(e);

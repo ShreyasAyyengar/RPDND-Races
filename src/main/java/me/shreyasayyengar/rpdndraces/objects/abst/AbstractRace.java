@@ -7,8 +7,11 @@ import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -19,15 +22,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * AbstractRace is the base class for all races. It serves as a central hub to most of the operations that
  * a race uses. All races are instantiated with the same constructor with the parameter of {@link UUID}.
  * This abstract class also implements {@link Listener} to allow any subclasses to create their own event handling.
  * <p></p>
+ *
  * @author Shreyas Ayyengar
  * @since 1.0
  */
@@ -38,6 +41,7 @@ public abstract class AbstractRace implements Listener {
     protected final UUID uuid;
 
     protected boolean eventRegistered = false;
+    protected boolean handSwapEnabled = true;
     protected BukkitTask registeredTask;
     protected Player player;
     protected int cooldownTime;
@@ -103,6 +107,7 @@ public abstract class AbstractRace implements Listener {
      * be run if the {@link Player} is not null. If the {@link Player} is null, nothing will be run. <p></p>
      * This method is useful for things like activating passive abilities, or sending messages to the player, etc,
      * without having to worry about null pointers. <i>(and tbh im lazy af :>)</i>
+     *
      * @param action is the action to run.
      */
     protected final void runUnsafeActions(Runnable action) {
@@ -128,8 +133,8 @@ public abstract class AbstractRace implements Listener {
         return RaceManager.getRace(player.getUniqueId()).getName().equalsIgnoreCase(this.getName());
     }
 
-    public final int ticks(int seconds) {
-        return seconds * 20;
+    public final boolean isHandSwapEnabled() {
+        return handSwapEnabled;
     }
 
     public final void setRegisteredTask(BukkitTask task) {
@@ -159,7 +164,6 @@ public abstract class AbstractRace implements Listener {
 
     // ----------------------------------------------------------------------------------------------------------------
 
-
     /**
      * The onSwap method is called by the {@link PlayerSwapHandItemsEvent} by the BukkitAPI. Each subclass of {@link AbstractRace}
      * should override this method to do perform specific actions when the player swaps their hand items. The {@link AbstractRace#player} variable can be used
@@ -172,7 +176,7 @@ public abstract class AbstractRace implements Listener {
 
     public abstract String getName();
 
-    public abstract void deactivate();
+    public abstract void onDisable();
 
     public abstract int getRaceCooldown();
 
@@ -180,15 +184,51 @@ public abstract class AbstractRace implements Listener {
 
     protected static class RaceUtils {
 
-        public static void boostForward(Player player, int blocks) {
+        public static void teleportForward(Player player, int blocks) {
+            player.getWorld().spawnParticle(Particle.SPELL_WITCH, player.getLocation().add(0, 0.5, 0), 5);
             Vector direction = player.getEyeLocation().getDirection().multiply(blocks).setY(0.5);
             Location directionLoc = player.getLocation().add(direction);
             player.teleport(directionLoc);
+            player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
+            player.getWorld().spawnParticle(Particle.SPELL_WITCH, player.getLocation().add(0, 0.5, 0), 5);
+        }
+
+        public static void pushForward(Player player, int blocks) {
+            player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation().add(0, 0.5, 0), 15);
+            Vector direction = player.getEyeLocation().getDirection().multiply(blocks).setY(0.5);
+            player.setVelocity(direction);
+            player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
+            player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation().add(0, 0.5, 0), 15);
         }
 
         public static void addPotionEffect(Player player, PotionEffectType type, int seconds, int amplifier) {
-            player.addPotionEffect(new PotionEffect(type, seconds * 20, amplifier, false, false, false));
+            player.addPotionEffect(new PotionEffect(type, seconds * 20, amplifier - 1, false, false, false));
+        }
+
+        public static void getPerception(Player player) {
+            AtomicInteger number = new AtomicInteger();
+            player.getLocation().getNearbyPlayers(30).forEach(p -> {
+                if (player.canSee(p)) {
+                    number.getAndIncrement();
+                }
+            });
+
+            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§o§cThere are §b" + (number.get() - 1) + "§c players nearby!"));
+        }
+
+        public static List<String> formatLore(List<String> lore, List<String> active, List<String> passive) {
+
+            List<String> formattedLore = new ArrayList<>(lore);
+            formattedLore.add("");
+            formattedLore.add("&c[Active Abilities]");
+            formattedLore.addAll(active.stream().map(activeLore -> "&6" + active).toList());
+            formattedLore.add("");
+            formattedLore.add("&6[Passive Abilities]");
+            formattedLore.addAll(passive.stream().map(passiveLore -> "&e" + passive).toList());
+
+            return formattedLore.stream().map(Utils::colourise).toList();
         }
     }
+}
 
-}// TODO figure out all the "COOLDOWN" tab completetion (intelliJ) shit and fix all the mfing encapsulation!
+// TODO: configure how inventory requirements will work (Aarakocra, TieflingWinged mainly)
