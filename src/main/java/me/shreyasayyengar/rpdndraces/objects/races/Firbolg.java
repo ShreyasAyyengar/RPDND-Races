@@ -55,6 +55,6 @@ public class Firbolg extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_EVOKER_CAST_SPELL;
     }
 }

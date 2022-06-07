@@ -1,4 +1,4 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu.interfaces;
+package me.shreyasayyengar.rpdndraces.menu.interfaces;
 
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;

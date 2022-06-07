@@ -1,8 +1,8 @@
 package me.shreyasayyengar.rpdndraces;
 
 import me.shreyasayyengar.rpdndraces.commands.RaceCommand;
-import me.shreyasayyengar.rpdndraces.commands.TestCommand;
 import me.shreyasayyengar.rpdndraces.events.*;
+import me.shreyasayyengar.rpdndraces.menu.plugin.MenuManager;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.utils.Config;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
@@ -11,6 +11,8 @@ import me.shreyasayyengar.rpdndraces.utils.sql.MySQL;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -18,17 +20,17 @@ public final class RacesPlugin extends JavaPlugin {
 
     public static final String PREFIX = Utils.colourise("&6&l[&c&lRaces&6&l]");
 
-    private List<Class<?>> raceClasses;
-    private List<Class<?>> abstClasses;
-
     private MySQL database;
+    private MenuManager menuManager;
 
     public static RacesPlugin getInstance() {
         return RacesPlugin.getPlugin(RacesPlugin.class);
     }
-
     public static MySQL getDatabase() {
         return getInstance().database;
+    }
+    public static MenuManager getMenuManager() {
+        return getInstance().menuManager;
     }
 
     @Override
@@ -37,18 +39,20 @@ public final class RacesPlugin extends JavaPlugin {
 
         registerCommands();
         registerEvents();
-        registerRaceClasses();
 
         Config.init(this);
         initMySQL();
 
         loadRaces();
         AbstractRace.startTask();
+
+        this.menuManager = new MenuManager(this);
+
+        System.gc();
     }
 
     private void registerCommands() {
-        this.getCommand("test").setExecutor(new TestCommand());
-        this.getCommand("race").setExecutor(new RaceCommand());
+        this.getCommand("races").setExecutor(new RaceCommand());
     }
 
     private void registerEvents() {
@@ -59,11 +63,6 @@ public final class RacesPlugin extends JavaPlugin {
                 new FoodLevelChange(),
                 new ItemConsume()
         ).forEach(event -> this.getServer().getPluginManager().registerEvents(event, this));
-    }
-
-    private void registerRaceClasses() {
-        this.raceClasses = Utils.getClassesInPackage("me.shreyasayyengar.rpdndraces.objects.races");
-        this.abstClasses = Utils.getClassesInPackage("me.shreyasayyengar.rpdndraces.objects.abst");
     }
 
     private void initMySQL() {
@@ -89,12 +88,47 @@ public final class RacesPlugin extends JavaPlugin {
         }
     }
 
-    public List<Class<?>> getRaceClasses() {
-        return raceClasses;
-    }
+    public List<Class<?>> getCleanRaces() {
+        try {
 
-    public List<Class<?>> getAbstractClasses() {
-        return abstClasses;
+            List<Class<?>> races = Utils.getClassesForPackage("me.shreyasayyengar.rpdndraces.objects.races");
+            List<Class<?>> abstRaces = Utils.getClassesForPackage("me.shreyasayyengar.rpdndraces.objects.abst");
+            List<Class<?>> allRaces = new ArrayList<>();
+
+            List<Class<?>> sortedAbstRaces = new ArrayList<>();
+
+            List<Class<?>> classesToRemove = new ArrayList<>();
+
+            allRaces.addAll(races);
+            allRaces.addAll(abstRaces);
+
+            allRaces.removeIf(aClass -> aClass.getSimpleName().isEmpty()); // remove classes like [' ', ' ']
+            allRaces.removeIf(aClass -> aClass.getSimpleName().equalsIgnoreCase("AbstractRace")); // removes base abstract class
+            allRaces.removeIf(aClass -> !AbstractRace.class.isAssignableFrom(aClass)); // Remove classes that aren't subclasses of AbstractRace
+
+            allRaces.forEach(raceClass -> {
+                if (raceClass.getSimpleName().contains("Abstract")) {
+                    sortedAbstRaces.add(raceClass);
+                }
+            });
+            allRaces.forEach(raceClass -> {
+                sortedAbstRaces.forEach(abstRaceClass -> {
+                    if (abstRaceClass.isAssignableFrom(raceClass) && !raceClass.getSimpleName().equalsIgnoreCase(abstRaceClass.getSimpleName())) {
+                        classesToRemove.add(raceClass);
+                    }
+                });
+            });
+
+            allRaces.removeAll(classesToRemove);
+            allRaces.sort(Comparator.comparing(aClass -> aClass.getSimpleName().toLowerCase()));
+
+            return allRaces;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override
@@ -108,7 +142,7 @@ public final class RacesPlugin extends JavaPlugin {
         }
     }
 
-
 }
 
 // TODO: Perhaps rethink the task system in AbstractRace and its impls; it's a bit messy;
+// TODO: find a fix for dupe code in Centaur, Satyr and Minotaur (create an interface with SpecialMovement?

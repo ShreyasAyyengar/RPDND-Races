@@ -6,6 +6,9 @@ prefix: RPDNDRaces
 author: Shreyas Ayyengar
 
 commands:
-  test:
+  races:
+    aliases:
+      - race
+
 
 

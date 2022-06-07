@@ -46,7 +46,7 @@ public class Hexblood extends AbstractRace implements PassiveAbilities {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_TURTLE_SHAMBLE;
     }
 
     @Override

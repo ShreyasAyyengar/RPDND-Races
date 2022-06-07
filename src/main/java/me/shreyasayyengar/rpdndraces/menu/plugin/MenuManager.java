@@ -1,6 +1,6 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu.plugin;
+package me.shreyasayyengar.rpdndraces.menu.plugin;
 
-import me.shreyasayyengar.rpdndraces.inventory.menu.interfaces.Menu;
+import me.shreyasayyengar.rpdndraces.menu.interfaces.Menu;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

@@ -2,6 +2,9 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
@@ -45,6 +48,23 @@ public class Satyr extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_HORSE_GALLOP;
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+
+        if (isThisRace(player)) {
+            if (player.getLocation().getBlockX() == event.getTo().getBlockX() && player.getLocation().getBlockZ() == event.getTo().getBlockZ()) {
+                return;
+            }
+
+            if (player.isSprinting()) {
+                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, 1);
+            } else {
+                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_STEP, 1, 1);
+            }
+        }
     }
 }

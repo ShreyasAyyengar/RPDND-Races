@@ -45,6 +45,6 @@ public class Gith extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_TURTLE_SHAMBLE;
     }
 }

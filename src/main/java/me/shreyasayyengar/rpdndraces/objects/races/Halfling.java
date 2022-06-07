@@ -55,6 +55,6 @@ public class Halfling extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_ZOMBIE_DESTROY_EGG;
     }
 }

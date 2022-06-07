@@ -1,7 +1,6 @@
 package me.shreyasayyengar.rpdndraces.utils;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
-import me.shreyasayyengar.rpdndraces.objects.races.Aarakocra;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.utils.sql.SQLUtils;
 
@@ -61,9 +60,9 @@ public class RaceManager {
             UUID uuid = UUID.fromString(resultSet.getString("uuid"));
             String race = resultSet.getString("current_race");
 
-            switch (race.toLowerCase()) {
-                case "aarakocra" -> new Aarakocra(uuid);
-            }
+//            switch (race.toLowerCase()) {
+//                case "aarakocra" -> new Aarakocra(uuid);
+//            }
         }
     }
 }

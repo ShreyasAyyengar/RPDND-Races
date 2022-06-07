@@ -55,7 +55,7 @@ public class Lizardfolk extends AbstractRace implements BoostedDiet {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_FOX_SNIFF;
     }
 
     @Override

@@ -1,7 +1,7 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu.interfaces;
+package me.shreyasayyengar.rpdndraces.menu.interfaces;
 
-import me.shreyasayyengar.rpdndraces.inventory.menu.MenuItem;
-import me.shreyasayyengar.rpdndraces.inventory.menu.SimpleDisplay;
+import me.shreyasayyengar.rpdndraces.menu.MenuItem;
+import me.shreyasayyengar.rpdndraces.menu.SimpleDisplay;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

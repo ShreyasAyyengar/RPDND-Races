@@ -68,7 +68,7 @@ public class GenasiFire extends AbstractGenasi implements TaskedRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.BLOCK_FIRE_AMBIENT;
     }
 
     @Override

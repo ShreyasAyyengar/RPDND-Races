@@ -3,6 +3,9 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import org.bukkit.Sound;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -55,5 +58,22 @@ public class Minotaur extends AbstractRace {
     @Override
     public Sound getSound() {
         return null;
+    }
+
+    @EventHandler
+    public void onPlayerMove(PlayerMoveEvent event) {
+        Player player = event.getPlayer();
+
+        if (isThisRace(player)) {
+            if (player.getLocation().getBlockX() == event.getTo().getBlockX() && player.getLocation().getBlockZ() == event.getTo().getBlockZ()) {
+                return;
+            }
+
+            if (player.isSprinting()) {
+                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, 1);
+            } else {
+                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_STEP, 1, 1);
+            }
+        }
     }
 }

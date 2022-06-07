@@ -3,9 +3,19 @@ package me.shreyasayyengar.rpdndraces.objects.abst;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.List;
 import java.util.UUID;
 
 public abstract class AbstractTiefling extends AbstractRace implements PassiveAbilities {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("Through birth or curse, tieflings are a mixture of human and devil", "features, with the wiles to match their more infernal parentage.", "Click to view more!");
+        List<String> active = List.of();
+        List<String> passive = List.of();
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public AbstractTiefling(UUID uuid) {
         super(uuid);

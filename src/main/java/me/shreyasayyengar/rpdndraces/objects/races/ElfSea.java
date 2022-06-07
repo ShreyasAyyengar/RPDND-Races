@@ -54,6 +54,6 @@ public class ElfSea extends AbstractElf {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_ZOMBIE_CONVERTED_TO_DROWNED;
     }
 }

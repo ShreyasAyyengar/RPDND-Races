@@ -1,4 +1,4 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu.adapter;
+package me.shreyasayyengar.rpdndraces.menu.adapter;
 
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;

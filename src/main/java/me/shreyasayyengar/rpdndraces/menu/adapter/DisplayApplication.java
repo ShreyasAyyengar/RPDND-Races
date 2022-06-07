@@ -1,6 +1,6 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu.adapter;
+package me.shreyasayyengar.rpdndraces.menu.adapter;
 
-import me.shreyasayyengar.rpdndraces.inventory.menu.interfaces.MenuDisplay;
+import me.shreyasayyengar.rpdndraces.menu.interfaces.MenuDisplay;
 import org.jetbrains.annotations.NotNull;
 
 /**

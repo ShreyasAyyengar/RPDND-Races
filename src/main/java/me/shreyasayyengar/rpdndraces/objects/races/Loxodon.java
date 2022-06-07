@@ -48,7 +48,7 @@ public class Loxodon extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_HORSE_BREATHE;
     }
 
     @EventHandler

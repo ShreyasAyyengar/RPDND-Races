@@ -44,7 +44,7 @@ public class HalfElf extends AbstractRace implements PassiveAbilities {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.BLOCK_BELL_RESONATE;
     }
 
     @Override

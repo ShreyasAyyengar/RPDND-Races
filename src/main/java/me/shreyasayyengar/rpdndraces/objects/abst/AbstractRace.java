@@ -218,13 +218,37 @@ public abstract class AbstractRace implements Listener {
 
         public static List<String> formatLore(List<String> lore, List<String> active, List<String> passive) {
 
-            List<String> formattedLore = new ArrayList<>(lore);
+            // combine lore into a single string
+            StringBuilder sb = new StringBuilder();
+            for (String s : lore) {
+                sb.append(s).append(" ");
+            }
+
+            String[] split = sb.toString().split(" ");
+            List<String> loreList = new ArrayList<>();
+            for (int i = 0; i < split.length; i += 6) {
+                StringBuilder sb2 = new StringBuilder();
+                for (int j = 0; j < 6; j++) {
+                    if (i + j < split.length) {
+                        sb2.append(split[i + j]).append(" ");
+                    }
+                }
+                loreList.add(sb2.toString());
+            }
+
+            List<String> formattedLore = new ArrayList<>(loreList);
             formattedLore.add("");
-            formattedLore.add("&c[Active Abilities]");
-            formattedLore.addAll(active.stream().map(activeLore -> "&6" + active).toList());
-            formattedLore.add("");
-            formattedLore.add("&6[Passive Abilities]");
-            formattedLore.addAll(passive.stream().map(passiveLore -> "&e" + passive).toList());
+
+            if (active.size() > 0) {
+                formattedLore.add("&cActive Abilities");
+                formattedLore.addAll(active.stream().map(line -> "&e- " + line).toList());
+            }
+
+            if (passive.size() > 0) {
+                formattedLore.add("");
+                formattedLore.add("&6Passive Abilities");
+                formattedLore.addAll(passive.stream().map(line -> "&e- " + line).toList());
+            }
 
             return formattedLore.stream().map(Utils::colourise).toList();
         }

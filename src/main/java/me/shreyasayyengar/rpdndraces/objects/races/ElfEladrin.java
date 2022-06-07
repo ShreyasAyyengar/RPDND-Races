@@ -43,6 +43,6 @@ public class ElfEladrin extends AbstractElf {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_EVOKER_CAST_SPELL;
     }
 }

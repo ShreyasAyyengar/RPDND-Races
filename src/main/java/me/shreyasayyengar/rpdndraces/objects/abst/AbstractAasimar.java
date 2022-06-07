@@ -9,9 +9,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
+import java.util.List;
 import java.util.UUID;
 
 public abstract class AbstractAasimar extends AbstractRace implements TaskedRace {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("The descendents of humans marked by Celestials.", "They often champion the cause of their Celestial parent.", "Click to view more!");
+        List<String> active = List.of();
+        List<String> passive = List.of();
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public AbstractAasimar(UUID uuid) {
         super(uuid);

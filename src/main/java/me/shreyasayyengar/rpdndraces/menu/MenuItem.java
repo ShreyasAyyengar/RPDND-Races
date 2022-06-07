@@ -1,6 +1,6 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu;
+package me.shreyasayyengar.rpdndraces.menu;
 
-import me.shreyasayyengar.rpdndraces.inventory.menu.interfaces.MenuClickCallback;
+import me.shreyasayyengar.rpdndraces.menu.interfaces.MenuClickCallback;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 

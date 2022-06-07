@@ -1,17 +1,21 @@
 package me.shreyasayyengar.rpdndraces.utils;
 
+import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Utils {
 
@@ -46,46 +50,37 @@ public class Utils {
         }
     }
 
-    public static List<Class<?>> getClassesInPackage(String packageName) {
-        String path = packageName.replaceAll("\\.", File.separator);
-        List<Class<?>> classes = new ArrayList<>();
-        String[] classPathEntries = System.getProperty("java.class.path").split(
-                System.getProperty("path.separator")
-        );
+    public static List<Class<?>> getClassesForPackage(final String pkgName) throws IOException, URISyntaxException {
+        final String pkgPath = pkgName.replace('.', '/');
+        final URI pkg = Objects.requireNonNull(RacesPlugin.class.getClassLoader().getResource(pkgPath)).toURI();
+        final ArrayList<Class<?>> allClasses = new ArrayList<>();
 
-        String name;
-        for (String classpathEntry : classPathEntries) {
-            if (classpathEntry.endsWith(".jar")) {
-                File jar = new File(classpathEntry);
-                try {
-                    JarInputStream is = new JarInputStream(new FileInputStream(jar));
-                    JarEntry entry;
-                    while ((entry = is.getNextJarEntry()) != null) {
-                        name = entry.getName();
-                        if (name.endsWith(".class")) {
-                            if (name.contains(path) && name.endsWith(".class")) {
-                                String classPath = name.substring(0, entry.getName().length() - 6);
-                                classPath = classPath.replaceAll("[|/]", ".");
-                                classes.add(Class.forName(classPath));
-                            }
-                        }
-                    }
-                } catch (Exception ignored) {}
-            } else {
-
-                try {
-                    File base = new File(classpathEntry + File.separatorChar + path);
-                    for (File file : base.listFiles()) {
-                        name = file.getName();
-                        if (name.endsWith(".class")) {
-                            name = name.substring(0, name.length() - 6);
-                            classes.add(Class.forName(packageName + "." + name));
-                        }
-                    }
-                } catch (Exception ignored) {}
+        Path root;
+        if (pkg.toString().startsWith("jar:")) {
+            try {
+                root = FileSystems.getFileSystem(pkg).getPath(pkgPath);
+            } catch (final FileSystemNotFoundException e) {
+                root = FileSystems.newFileSystem(pkg, Collections.emptyMap()).getPath(pkgPath);
             }
+        } else {
+            root = Paths.get(pkg);
         }
 
-        return classes;
+        final String extension = ".class";
+        try (final Stream<Path> allPaths = Files.walk(root)) {
+            allPaths.filter(Files::isRegularFile).forEach(file -> {
+                try {
+                    final String path = file.toString().replace('/', '.');
+                    final String name = path.substring(path.indexOf(pkgName), path.length() - extension.length());
+                    allClasses.add(Class.forName(name));
+                } catch (final ClassNotFoundException | StringIndexOutOfBoundsException ignored) {
+                }
+            });
+        }
+        return allClasses;
+    }
+
+    public static void handleSelection(Player player, String chosenRace) {
+        System.out.println(player.getName() + " chose " + chosenRace);
     }
 }

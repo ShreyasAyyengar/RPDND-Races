@@ -42,6 +42,6 @@ public class Changeling extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_PHANTOM_FLAP;
     }
 }

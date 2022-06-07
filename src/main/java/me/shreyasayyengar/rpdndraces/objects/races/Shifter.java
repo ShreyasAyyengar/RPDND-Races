@@ -47,7 +47,7 @@ public class Shifter extends AbstractRace implements PassiveAbilities {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_FOX_SNIFF;
     }
 
     @Override

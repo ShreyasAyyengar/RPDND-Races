@@ -80,7 +80,7 @@ public class Aarakocra extends AbstractRace implements RequiredSetup, InventoryR
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_ENDER_DRAGON_FLAP;
     }
 
     @Override

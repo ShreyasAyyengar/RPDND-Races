@@ -1,9 +1,9 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu.interfaces;
+package me.shreyasayyengar.rpdndraces.menu.interfaces;
 
-import me.shreyasayyengar.rpdndraces.inventory.menu.MenuItem;
-import me.shreyasayyengar.rpdndraces.inventory.menu.SimpleMenu;
-import me.shreyasayyengar.rpdndraces.inventory.menu.adapter.DisplayApplication;
-import me.shreyasayyengar.rpdndraces.inventory.menu.adapter.InventoryAdapter;
+import me.shreyasayyengar.rpdndraces.menu.MenuItem;
+import me.shreyasayyengar.rpdndraces.menu.SimpleMenu;
+import me.shreyasayyengar.rpdndraces.menu.adapter.DisplayApplication;
+import me.shreyasayyengar.rpdndraces.menu.adapter.InventoryAdapter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

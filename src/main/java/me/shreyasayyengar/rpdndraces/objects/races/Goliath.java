@@ -74,6 +74,6 @@ public class Goliath extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_RAVAGER_ATTACK;
     }
 }

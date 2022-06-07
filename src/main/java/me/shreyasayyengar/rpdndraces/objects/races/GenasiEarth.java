@@ -57,7 +57,7 @@ public class GenasiEarth extends AbstractGenasi {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ITEM_HOE_TILL;
     }
 
     @EventHandler

@@ -55,7 +55,7 @@ public class Tortle extends AbstractRace implements PassiveAbilities {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_ZOMBIE_CONVERTED_TO_DROWNED;
     }
 
     @Override

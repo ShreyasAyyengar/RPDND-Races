@@ -1,7 +1,7 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu;
+package me.shreyasayyengar.rpdndraces.menu;
 
-import me.shreyasayyengar.rpdndraces.inventory.menu.interfaces.MenuCloseCallback;
-import me.shreyasayyengar.rpdndraces.inventory.menu.interfaces.MenuDisplay;
+import me.shreyasayyengar.rpdndraces.menu.interfaces.MenuCloseCallback;
+import me.shreyasayyengar.rpdndraces.menu.interfaces.MenuDisplay;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.LinkedHashMap;

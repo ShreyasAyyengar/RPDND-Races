@@ -23,7 +23,7 @@ public class HandSwap implements Listener {
             if (race.checkCooldown()) {
                 race.onSwap();
                 race.setCooldown();
-                player.getWorld().playSound(player.getLocation(), race.getSound(), 1, 1);
+                player.playSound(player.getLocation(), race.getSound(), 1, 1);
             }
         }
     }

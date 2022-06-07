@@ -65,7 +65,7 @@ public class GenasiAir extends AbstractGenasi {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_ENDER_DRAGON_FLAP;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package me.shreyasayyengar.rpdndraces.inventory.menu.plugin;
+package me.shreyasayyengar.rpdndraces.menu.plugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -8,9 +8,19 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 public abstract class AbstractGenasi extends AbstractRace implements PassiveAbilities {
+
+    public static List<String> getItemLore() {
+
+        List<String> lore = List.of("The offspring of a Genie and a human, they carry the", "power of the elemental planes in their blood.", "Click to view more!");
+        List<String> active = List.of();
+        List<String> passive = List.of();
+
+        return RaceUtils.formatLore(lore, active, passive);
+    }
 
     public AbstractGenasi(UUID uuid) {
         super(uuid);

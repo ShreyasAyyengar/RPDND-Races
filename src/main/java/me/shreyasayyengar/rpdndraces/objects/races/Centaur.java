@@ -64,8 +64,14 @@ public class Centaur extends AbstractRace {
         Player player = event.getPlayer();
 
         if (isThisRace(player)) {
-            if (player.getLocation().getBlockX() != event.getTo().getBlockX() || player.getLocation().getBlockZ() != event.getTo().getBlockZ()) {
-                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, 1);
+            if (player.getLocation().getBlockX() == event.getTo().getBlockX() && player.getLocation().getBlockZ() == event.getTo().getBlockZ()) {
+                return;
+            }
+
+            if (player.isSprinting()) {
+                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, 1);
+            } else {
+                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_STEP, 1, 1);
             }
         }
     }

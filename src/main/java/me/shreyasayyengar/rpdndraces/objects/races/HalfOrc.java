@@ -45,6 +45,6 @@ public class HalfOrc extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_ENDER_DRAGON_GROWL;
     }
 }
