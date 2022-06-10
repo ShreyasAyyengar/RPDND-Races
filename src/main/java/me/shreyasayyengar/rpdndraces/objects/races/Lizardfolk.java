@@ -20,7 +20,7 @@ public class Lizardfolk extends AbstractRace implements BoostedDiet {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Their dismall swamp homes might lie hundreds of miles from the nearest human settlement,", "and but the gap between their way of thinking and that of the smooth-skins is far greater.");
+        List<String> lore = List.of("Their dismall swamp homes might lie hundreds of miles from the nearest human settlement, and but the gap between their way of thinking and that of the smooth-skins is far greater.");
         List<String> active = List.of("Hunter");
         List<String> passive = List.of("Scale Defense", "Raw Diet");
 

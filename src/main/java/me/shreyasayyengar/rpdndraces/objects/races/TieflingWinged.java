@@ -12,7 +12,7 @@ public class TieflingWinged extends AbstractTiefling implements InventoryRequire
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Through birth or curse, tieflings are a mixture of human and devil", "features, with the wiles to match their more infernal parentage.");
+        List<String> lore = List.of("Through birth or curse, tieflings are a mixture of human and devil features, with the wiles to match their more infernal parentage.");
         List<String> active = List.of("Take Flight", "Wind Ride");
         List<String> passive = List.of("Fire Reistance", "Nightvision");
 

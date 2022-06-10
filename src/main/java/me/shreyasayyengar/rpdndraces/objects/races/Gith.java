@@ -11,7 +11,7 @@ public class Gith extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("A psionically sensitive race once enslaved to mindflayers, now freed", "A sundered race split in two, Githzerai and Githyanki. Both follow their own opposite values.");
+        List<String> lore = List.of("A psionically sensitive race once enslaved to mindflayers, now freed. A sundered race split in two, Githzerai and Githyanki. Both follow their own opposite values.");
         List<String> active = List.of("Movement");
         List<String> passive = List.of();
 

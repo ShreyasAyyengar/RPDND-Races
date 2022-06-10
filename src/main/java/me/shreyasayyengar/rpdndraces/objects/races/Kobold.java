@@ -16,7 +16,7 @@ public class Kobold extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("A small, lizard-like race, kobolds rely on numbers and packs rather", "than individual strength, much like the tactics of wolves.");
+        List<String> lore = List.of("A small, lizard-like race, kobolds rely on numbers and packs rather than individual strength, much like the tactics of wolves.");
         List<String> active = List.of("Nightvision");
         List<String> passive = List.of("Scale Defense");
 

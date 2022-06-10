@@ -14,7 +14,7 @@ public class Reborn extends AbstractRace implements Appetitless {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Ashen flesh and bloodless veins and usually showing the signs of the cause", "of their death upon their bodies. Reborn are a race that has died... yet live.", "Some are crafted by magic or science. ");
+        List<String> lore = List.of("As the name implies, these people defy death. Be it through dark magic, through science, unfinished business or otherwise, they forge a path where their previous ones failed.");
         List<String> active = List.of("Nightvision", "Regeneration 2");
         List<String> passive = List.of("Dead Man's Needs");
 

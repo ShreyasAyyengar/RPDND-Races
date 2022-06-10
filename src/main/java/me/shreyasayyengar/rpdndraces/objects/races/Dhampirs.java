@@ -16,7 +16,7 @@ public class Dhampirs extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Standing between life and death. While maintaining life they", "have a vicious craving and hunger.");
+        List<String> lore = List.of("Standing between life and death. While maintaining life they have a vicious craving and hunger.");
         List<String> active = List.of("Rapid Energy", "Blood Diet");
         List<String> passive = List.of("Nightvision");
 

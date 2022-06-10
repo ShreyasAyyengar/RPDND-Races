@@ -18,7 +18,7 @@ public class GenasiAir extends AbstractGenasi {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("The offspring of a Genie and a human, they carry the", "power of the elemental planes in their blood.");
+        List<String> lore = List.of("A rare humanoid touched by the elemental planes, Genasi are typically offsprings of genies and mortals.");
         List<String> active = List.of("Wind Burst", "Wind Ride");
         List<String> passive = List.of("Air Heritage");
 

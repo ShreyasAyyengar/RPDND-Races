@@ -14,7 +14,7 @@ public class Tortle extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("An intelligent humanoid tortoise-like race. Once they are able to walk they", "seek the wanders of the world, adventure, or a simple life. ");
+        List<String> lore = List.of("An intelligent humanoid tortoise-like race. Once they are able to walk they seek the wonders of the world, adventure, or a simple life. ");
         List<String> active = List.of("Aquatic Travel");
         List<String> passive = List.of("Raw Diet", "Shell Defense");
 

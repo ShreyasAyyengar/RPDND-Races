@@ -14,7 +14,7 @@ public class Satyr extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Full of good spirits, gregarious personalities, and love of revels. To see the world", "and to sample every pleasure they don't let moodiness of others ruin their fun.");
+        List<String> lore = List.of("Full of good spirits, gregarious personalities, and love of revels. To see the world and to sample every pleasure they don't let moodiness of others ruin their fun.");
         List<String> active = List.of("Boundless Energy");
         List<String> passive = List.of();
 

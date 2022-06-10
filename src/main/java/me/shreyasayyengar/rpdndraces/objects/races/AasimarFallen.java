@@ -10,7 +10,7 @@ public class AasimarFallen extends AbstractAasimar implements InventoryRequireme
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("The descendents of humans marked by Celestials.", "They often champion the cause of their Celestial parent.");
+        List<String> lore = List.of("The descendents of humans marked by Celestials. They often champion the cause of their Celestial parent.");
         List<String> active = List.of("Take Flight");
         List<String> passive = List.of("Healing Hands");
 

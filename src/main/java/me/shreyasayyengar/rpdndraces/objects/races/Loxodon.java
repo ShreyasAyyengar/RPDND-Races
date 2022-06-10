@@ -14,7 +14,7 @@ public class Loxodon extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("While they look like brutes, these gentle giants prefer peace and", "wisdom over chaos and carnage, At least, until provoked.");
+        List<String> lore = List.of("While they look like brutes, these gentle giants prefer peace and wisdom over chaos and carnage, At least, until provoked.");
         List<String> active = List.of("Instinct");
         List<String> passive = List.of("Tough Hide");
 

@@ -12,7 +12,7 @@ public class Goblin extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Goblins occupy an uneasy place in a dangerous world. They react by", "lashing out at any creatures they believe they can bully.");
+        List<String> lore = List.of("Goblins occupy an uneasy place in a dangerous world. This often results in them lashing out preemptively, showing cunning in battle.");
         List<String> active = List.of("Nimble Escape");
         List<String> passive = List.of("Nightvision");
 

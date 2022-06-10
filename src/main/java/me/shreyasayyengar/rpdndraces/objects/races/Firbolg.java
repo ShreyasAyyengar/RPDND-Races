@@ -11,7 +11,7 @@ public class Firbolg extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("A reclusive race of Giant-kin. They are the most intelligent ", "and powerful of the Giant-kin.");
+        List<String> lore = List.of("The reclusive Firbolg tends to live in the quiet harmony of the woods. They have strong ties to nature and druidic magic.");
         List<String> active = List.of("Hidden Step");
         List<String> passive = List.of();
 

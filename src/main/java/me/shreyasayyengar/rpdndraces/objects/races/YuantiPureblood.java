@@ -19,7 +19,7 @@ public class YuantiPureblood extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Ages ago their dark gods taught them profane, cannibalistic rituals to mix their", "flesh with that of snakes, producing caste-based society of human snake hybrids.");
+        List<String> lore = List.of("Ages ago their dark gods taught them profane, cannibalistic rituals to mix their flesh with that of snakes, producing caste-based society of human snake hybrids.");
         List<String> active = List.of("Nightvision", "Animal Charm");
         List<String> passive = List.of("Poison Immunity");
 

@@ -15,7 +15,7 @@ public abstract class AbstractGenasi extends AbstractRace implements PassiveAbil
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("The offspring of a Genie and a human, they carry the", "power of the elemental planes in their blood.", "Click to view more!");
+        List<String> lore = List.of("A rare humanoid touched by the elemental planes, Genasi are typically offsprings of genies and mortals. &e&lClick &e&lto &e&lview &e&lmore!");
         List<String> active = List.of();
         List<String> passive = List.of();
 

@@ -12,7 +12,7 @@ public class Halfling extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("The comforts of home are the goals of most halflings' lives,", "looking mostly for a place to settle in peace and quiet.");
+        List<String> lore = List.of("The comforts of home are the goals of most halflings' lives, looking mostly for a place to settle in peace and quiet.");
         List<String> active = List.of("Roll The Stones");
         List<String> passive = List.of();
 

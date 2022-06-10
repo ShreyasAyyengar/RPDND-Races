@@ -14,7 +14,7 @@ public class Human extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Diverse and ambitious, and although they lacked", "specialization, they could excel in many areas.");
+        List<String> lore = List.of("Diverse and ambitious, and although they lacked specialization, they could excel in many areas.");
         List<String> active = List.of("Adrenaline");
         List<String> passive = List.of("Friendship");
 

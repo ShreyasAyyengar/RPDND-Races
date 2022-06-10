@@ -16,7 +16,7 @@ public class Dragonborn extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("A humanoid draconic race native to Abeir. Strongly built, the ", "blood of dragons grant them gifts and the use of their breath weapon.");
+        List<String> lore = List.of("A race of strong visual semblance to dragons, their strong builds and colorful scales are accompanied by the ability to exhale devastating elemental breaths.");
         List<String> active = List.of("Dragon's Breath");
         List<String> passive = List.of("Scale Defense");
 

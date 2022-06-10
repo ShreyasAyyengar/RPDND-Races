@@ -17,7 +17,7 @@ public class AasimarScourge extends AbstractAasimar {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("The descendents of humans marked by Celestials.", "They often champion the cause of their Celestial parent.");
+        List<String> lore = List.of("The descendents of humans marked by Celestials. They often champion the cause of their Celestial parent.");
         List<String> active = List.of("Radiant Burst");
         List<String> passive = List.of("Healing Hands");
 

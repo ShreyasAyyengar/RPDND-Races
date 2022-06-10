@@ -13,7 +13,7 @@ public class Triton extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Tritons guard the ocean depths, portals to the elemental planes,", "and other dangerous spots far from the eyes of land-bound folk.");
+        List<String> lore = List.of("Tritons guard the ocean depths, portals to the elemental planes, and other dangerous spots far from the eyes of land-bound folk.");
         List<String> active = List.of("Aquatic Travel");
         List<String> passive = List.of("Raw Diet");
 

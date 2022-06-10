@@ -11,7 +11,7 @@ public abstract class AbstractElf extends AbstractRace implements PassiveAbiliti
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Often described as the definition of grace and poise, they are agile and deadly hunters.", "Click to view more!");
+        List<String> lore = List.of("Often described as the definition of grace and poise, they are agile and deadly hunters. &e&lClick &e&lto &e&lview &e&lmore!");
         List<String> active = List.of();
         List<String> passive = List.of();
 

@@ -16,7 +16,7 @@ public class Centaur extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Roamers at heart, centaurs love open spaces and the freedom to travel. ", "They race the wind, hooves thundering and tails streaming behind them.");
+        List<String> lore = List.of("Roamers at heart, centaurs love open spaces and the freedom to travel. They race the wind, hooves thundering and tails streaming behind them.");
         List<String> active = List.of("Mad Dash");
         List<String> passive = List.of();
 

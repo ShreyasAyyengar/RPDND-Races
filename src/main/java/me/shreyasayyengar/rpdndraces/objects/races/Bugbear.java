@@ -11,7 +11,7 @@ public class Bugbear extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("A rare and lethargic race, their aggression and savagery is reflected", "in how they bully weaker creatures to do their bidding.");
+        List<String> lore = List.of("These long-limbed goblinoids are mostly nocturnal and often take up leadership roles within goblin clans.");
         List<String> active = List.of("Shadow Walk");
         List<String> passive = List.of();
 

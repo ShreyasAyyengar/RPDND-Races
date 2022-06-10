@@ -12,7 +12,7 @@ public class Kenku extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Haunted by an ancient crime that robbed them of their wings, the flightless", "kenku wander the world as vagabonds who live at the edge of society.");
+        List<String> lore = List.of("Haunted by an ancient crime that robbed them of their wings, the flightless kenku wander the world as vagabonds who live at the edge of society.");
         List<String> active = List.of("Mimicry");
         List<String> passive = List.of();
 

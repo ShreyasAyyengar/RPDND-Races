@@ -26,7 +26,7 @@ public class Changeling extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("While normally pale faced with eyes black as obsidian, they are masters of", "disguise as they can change their form at will.");
+        List<String> lore = List.of("While normally pale faced with eyes black as obsidian, they are masters of disguise as they can change their form at will.");
         List<String> active = List.of("Disguise");
         List<String> passive = List.of();
 

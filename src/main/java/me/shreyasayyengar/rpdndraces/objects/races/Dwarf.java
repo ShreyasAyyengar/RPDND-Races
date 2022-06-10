@@ -11,7 +11,7 @@ public class Dwarf extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("As durable as the mountains they live within, these squat, ", "hairy creatures know the earth like no other race.");
+        List<String> lore = List.of("As durable as the mountains they live within, these squat, hairy creatures know the earth like no other race.");
         List<String> active = List.of("Mine Life");
         List<String> passive = List.of("");
 

@@ -19,7 +19,7 @@ public class Tabaxi extends AbstractRace implements BoostedDiet {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("These cat-like humanoids are as flexible and agile as they look, as", "well as fast and deadly predators with razor-like claws.");
+        List<String> lore = List.of("These cat-like humanoids are as flexible and agile as they look, as well as fast and deadly predators with razor-like claws.");
         List<String> active = List.of("Mad Dash");
         List<String> passive = List.of("Raw Diet");
 

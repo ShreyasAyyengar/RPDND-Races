@@ -16,7 +16,7 @@ public class Goliath extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Goliaths are massive humanoid Giant-kin. With skin", "as tough as stone their durability is like no other.");
+        List<String> lore = List.of("Goliaths are massive humanoid Giant-kin. With skin as tough as stone their durability is like no other.");
         List<String> active = List.of("Ground Stomp");
         List<String> passive = List.of();
 

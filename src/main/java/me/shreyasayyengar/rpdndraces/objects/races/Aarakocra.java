@@ -18,7 +18,7 @@ public class Aarakocra extends AbstractRace implements InventoryRequirement {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Sequestered in high mountains atop tall trees, these", "these bird-like folk evoke both fear and wonder.");
+        List<String> lore = List.of("Sequestered in high mountains atop tall trees, these bird-like folk evoke both fear and wonder.");
         List<String> active = List.of("Take Flight", "Wind Ride");
         List<String> passive = List.of("Natural Weapon");
 

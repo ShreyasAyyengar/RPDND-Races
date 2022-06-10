@@ -15,7 +15,7 @@ public class Warforged extends AbstractRace implements Appetitless {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Humanoids of steel, wood, and stone. These automatons are sturdy", "and versatile machines, made to fill any positions in war.");
+        List<String> lore = List.of("Humanoids of steel, wood, and stone. These automatons are sturdy and versatile machines, made to fill any positions in war.");
         List<String> active = List.of("Resistance");
         List<String> passive = List.of("Warforged Perks");
 

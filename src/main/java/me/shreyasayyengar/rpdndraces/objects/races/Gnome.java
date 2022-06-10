@@ -17,7 +17,7 @@ public class Gnome extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Gnomes take delight in life, enjoying every moment of invention,", "exploration, investigation, creation and play.");
+        List<String> lore = List.of("Gnomes take delight in life, enjoying every moment of invention, exploration, investigation, creation and play.");
         List<String> active = List.of("Nightvision");
         List<String> passive = List.of("Hardy Body");
 

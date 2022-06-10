@@ -12,7 +12,7 @@ public class Hexblood extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("This race are infused with eldritch magic, fey energy, or mysterious witchcraft.", "Many are created from deals with hags and others discover their heritage as they age.");
+        List<String> lore = List.of("This race are infused with eldritch magic, fey energy, or mysterious witchcraft. Many are created from deals with hags and others discover their heritage as they age.");
         List<String> active = List.of("Movement");
         List<String> passive = List.of("Nightvision");
 

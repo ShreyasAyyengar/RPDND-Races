@@ -16,7 +16,7 @@ public class Minotaur extends AbstractRace {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Part beast, part man, all savage. These brutes have the brutal recklessness of a charging bull.");
+        List<String> lore = List.of("Humanoids with a beastial head of a bovine, horns included. Don't stand in the way of a charging Minotaur!");
         List<String> active = List.of("Mad Dash");
         List<String> passive = List.of();
 

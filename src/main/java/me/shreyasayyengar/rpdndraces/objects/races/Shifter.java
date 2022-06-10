@@ -12,7 +12,7 @@ public class Shifter extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Shifters are sometimes called the weretouched, as many believe that", "they are the descendants of humans and lycanthropes.");
+        List<String> lore = List.of("Shifters are sometimes called the weretouched, as many believe that they are the descendants of humans and lycanthropes.");
         List<String> active = List.of("Hunter");
         List<String> passive = List.of();
 
