@@ -1,6 +1,7 @@
 package me.shreyasayyengar.rpdndraces.utils;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -11,10 +12,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class Utils {
@@ -24,30 +22,6 @@ public class Utils {
 
     public static String colourise(String message) {
         return ChatColor.translateAlternateColorCodes('&', message);
-    }
-
-    public static void setElytra(Player player) {
-        ItemStack itemStack = new ItemStack(Material.ELYTRA);
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setLocalizedName("not-removable");
-        itemStack.setItemMeta(itemMeta);
-
-        ItemStack[] contents = player.getInventory().getContents();
-
-        for (int i = 0; i < contents.length; i++) {
-            if (contents[i] == null) {
-
-                if (player.getInventory().getChestplate() != null) {
-
-                    ItemStack chestplate = player.getInventory().getChestplate();
-
-                    player.getInventory().setItem(i, chestplate);
-                    player.getInventory().setChestplate(itemStack);
-                } else player.getInventory().setChestplate(itemStack);
-
-                break;
-            }
-        }
     }
 
     public static List<Class<?>> getClassesForPackage(final String pkgName) throws IOException, URISyntaxException {
@@ -81,6 +55,45 @@ public class Utils {
     }
 
     public static void handleSelection(Player player, String chosenRace) {
-        System.out.println(player.getName() + " chose " + chosenRace);
+
+        player.closeInventory();
+
+        try {
+            Class<?> raceClass = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + chosenRace);
+
+            if (InventoryRequirement.class.isAssignableFrom(raceClass)) {
+                ItemStack itemStack = new ItemStack(Material.ELYTRA);
+                ItemMeta itemMeta = itemStack.getItemMeta();
+                itemMeta.setLocalizedName("not-removable");
+                itemStack.setItemMeta(itemMeta);
+
+                ItemStack[] contents = player.getInventory().getContents();
+
+                boolean success = false;
+                for (int i = 0; i < contents.length; i++) {
+                    if (contents[i] == null) {
+
+                        if (player.getInventory().getChestplate() != null) {
+
+                            ItemStack chestplate = player.getInventory().getChestplate();
+                            player.getInventory().setItem(i, chestplate);
+                        }
+
+                        player.getInventory().setChestplate(itemStack);
+                        success = true;
+                        break;
+                    }
+                }
+
+                if (!success) {
+                    player.sendMessage(colourise("&cYou do not have enough space in your inventory to equip the necessary items (chestplate)!"));
+                }
+            }
+
+            raceClass.getDeclaredConstructor(UUID.class).newInstance(player.getUniqueId());
+
+        } catch (ReflectiveOperationException ignored) {
+            ignored.printStackTrace();
+        }
     }
 }

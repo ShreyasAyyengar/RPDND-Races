@@ -28,7 +28,8 @@ public class TieflingNormal extends AbstractTiefling {
     @Override
     public void onSwap() {
 
-        Entity hitEntity = player.rayTraceBlocks(10).getHitEntity();
+        Entity hitEntity = player.getWorld().rayTraceEntities(player.getLocation().add(player.getEyeLocation().getDirection().multiply(2)), player.getEyeLocation().getDirection(), 10, 1).getHitEntity();
+
         if (hitEntity == null) return;
         if (hitEntity.getType() == EntityType.PLAYER) return;
 

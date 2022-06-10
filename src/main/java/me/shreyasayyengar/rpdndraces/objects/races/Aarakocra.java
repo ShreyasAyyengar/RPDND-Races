@@ -2,23 +2,19 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
-import me.shreyasayyengar.rpdndraces.utils.Utils;
-import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.UUID;
 
-public class Aarakocra extends AbstractRace implements RequiredSetup, InventoryRequirement {
+public class Aarakocra extends AbstractRace implements InventoryRequirement {
 
     public static List<String> getItemLore() {
 
@@ -34,33 +30,6 @@ public class Aarakocra extends AbstractRace implements RequiredSetup, InventoryR
     }
 
     @Override
-    public void setupPlayer() {
-        runUnsafeActions(() -> {
-            Utils.setElytra(player);
-
-            ItemStack[] contents = player.getInventory().getContents();
-
-            for (int i = 0; i < contents.length; i++) {
-                if (contents[i] == null) {
-
-                    if (player.getInventory().getChestplate() != null) {
-
-                        ItemStack chestplate = player.getInventory().getChestplate();
-
-                        if (chestplate.getType() != Material.ELYTRA) {
-                            player.getInventory().setItem(i, chestplate);
-                            chestplate.setAmount(1);
-                            player.getInventory().getChestplate().setType(Material.ELYTRA);
-                        }
-                    } else player.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
-
-                    break;
-                }
-            }
-        });
-    }
-
-    @Override
     public void onSwap() {
         if (player.isGliding()) {
             player.setVelocity(player.getEyeLocation().getDirection().normalize().multiply(3.5));
@@ -71,6 +40,7 @@ public class Aarakocra extends AbstractRace implements RequiredSetup, InventoryR
 
     @Override
     public void onDisable() {
+        player.getInventory().setChestplate(null);
     }
 
     @Override

@@ -1,17 +1,14 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractTiefling;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
-import me.shreyasayyengar.rpdndraces.utils.Utils;
-import org.bukkit.Material;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
 import org.bukkit.Sound;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.UUID;
 
-public class TieflingWinged extends AbstractTiefling implements RequiredSetup {
+public class TieflingWinged extends AbstractTiefling implements InventoryRequirement {
 
     public static List<String> getItemLore() {
 
@@ -42,7 +39,7 @@ public class TieflingWinged extends AbstractTiefling implements RequiredSetup {
 
     @Override
     public void onDisable() {
-
+        player.getInventory().setChestplate(null);
     }
 
     @Override
@@ -53,32 +50,5 @@ public class TieflingWinged extends AbstractTiefling implements RequiredSetup {
     @Override
     public Sound getSound() {
         return Sound.ENTITY_PHANTOM_FLAP;
-    }
-
-    @Override
-    public void setupPlayer() {
-        runUnsafeActions(() -> {
-            Utils.setElytra(player);
-
-            ItemStack[] contents = player.getInventory().getContents();
-
-            for (int i = 0; i < contents.length; i++) {
-                if (contents[i] == null) {
-
-                    if (player.getInventory().getChestplate() != null) {
-
-                        ItemStack chestplate = player.getInventory().getChestplate();
-
-                        if (chestplate.getType() != Material.ELYTRA) {
-                            player.getInventory().setItem(i, chestplate);
-                            chestplate.setAmount(1);
-                            player.getInventory().getChestplate().setType(Material.ELYTRA);
-                        }
-                    } else player.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
-
-                    break;
-                }
-            }
-        });
     }
 }

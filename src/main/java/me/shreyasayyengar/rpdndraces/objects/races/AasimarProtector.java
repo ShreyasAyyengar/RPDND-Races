@@ -28,5 +28,6 @@ public class AasimarProtector extends AbstractAasimar implements InventoryRequir
 
     @Override
     public void onDisable() {
+        player.getInventory().setChestplate(null);
     }
 }

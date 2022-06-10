@@ -31,6 +31,7 @@ public class RaceMenuManager {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void openRacesMenu(Player player) throws ReflectiveOperationException {
 
         MenuDisplay.DisplayBuilder menu = MenuDisplay.create(RacesPlugin.PREFIX);
@@ -98,6 +99,7 @@ public class RaceMenuManager {
         RacesPlugin.getMenuManager().openMenu(Menu.create(menu.build()), player, 54);
     }
 
+    @SuppressWarnings("unchecked")
     private static void buildSubraceMenu(Player player, List<Class<?>> subRaceClasses) throws ReflectiveOperationException {
 
         MenuDisplay.DisplayBuilder menu = MenuDisplay.create(RacesPlugin.PREFIX);

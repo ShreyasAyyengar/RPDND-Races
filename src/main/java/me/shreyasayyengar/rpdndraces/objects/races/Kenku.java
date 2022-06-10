@@ -1,6 +1,8 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
+import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Sound;
 
 import java.util.List;
@@ -23,17 +25,16 @@ public class Kenku extends AbstractRace {
 
     @Override
     public void onSwap() {
-
+        player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + "&aUse /k <sound> to mimic a sound!"));
     }
 
     @Override
     public String getName() {
-        return null;
+        return "Kenku";
     }
 
     @Override
     public void onDisable() {
-
     }
 
     @Override

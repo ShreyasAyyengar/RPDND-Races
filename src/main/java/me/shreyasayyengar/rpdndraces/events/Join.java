@@ -1,10 +1,12 @@
 package me.shreyasayyengar.rpdndraces.events;
 
+import me.libraryaddict.disguise.DisguiseAPI;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.Appetitless;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
+import me.shreyasayyengar.rpdndraces.objects.races.Changeling;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.sql.SQLUtils;
 import org.bukkit.entity.Player;
@@ -27,9 +29,7 @@ public class Join implements Listener {
 
         if (RaceManager.hasRace(player.getUniqueId())) {
             AbstractRace race = RaceManager.getRace(player.getUniqueId());
-
             race.setPlayer(player);
-
 
             if (race instanceof RequiredSetup setup) {
                 setup.setupPlayer();
@@ -48,9 +48,13 @@ public class Join implements Listener {
                 player.setFoodLevel(20);
             }
 
-//            race.setupPlayer();
-//            race.activatePassiveAbilities(); // TODO passive abils
-//            race.getTask();
+            if (race.getName().equalsIgnoreCase("changeling")) {
+                if (Changeling.TO_REMOVE.contains(player.getUniqueId())) {
+                    DisguiseAPI.undisguiseToAll(player);
+                    Changeling.TO_REMOVE.remove(player.getUniqueId());
+
+                }
+            }
         }
     }
 }

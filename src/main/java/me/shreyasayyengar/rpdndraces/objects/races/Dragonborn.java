@@ -43,7 +43,7 @@ public class Dragonborn extends AbstractRace {
                 loc.add(x, y, z);
                 player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
                 loc.subtract(x, y, z);
-                // final circle
+
                 for (double radius = 1; radius >= 0; radius -= 0.1) {
                     double x2 = 1.5 * (Math.cos(angle) * radius);
                     double y2 = 1;

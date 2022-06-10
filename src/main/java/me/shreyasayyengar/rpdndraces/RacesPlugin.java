@@ -1,5 +1,6 @@
 package me.shreyasayyengar.rpdndraces;
 
+import me.shreyasayyengar.rpdndraces.commands.KenkuCommand;
 import me.shreyasayyengar.rpdndraces.commands.RaceCommand;
 import me.shreyasayyengar.rpdndraces.events.*;
 import me.shreyasayyengar.rpdndraces.menu.plugin.MenuManager;
@@ -53,6 +54,7 @@ public final class RacesPlugin extends JavaPlugin {
 
     private void registerCommands() {
         this.getCommand("races").setExecutor(new RaceCommand());
+        this.getCommand("kenku").setExecutor(new KenkuCommand());
     }
 
     private void registerEvents() {

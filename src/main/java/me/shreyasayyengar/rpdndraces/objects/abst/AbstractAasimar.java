@@ -2,7 +2,6 @@ package me.shreyasayyengar.rpdndraces.objects.abst;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
-import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -37,7 +36,6 @@ public abstract class AbstractAasimar extends AbstractRace implements TaskedRace
 
     @Override
     public void onSwap() {
-        Utils.setElytra(player);
         player.setVelocity(player.getVelocity().add(new Vector(0, 4.5, 0)));
         new BukkitRunnable() {
             @Override

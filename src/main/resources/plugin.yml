@@ -9,6 +9,11 @@ commands:
   races:
     aliases:
       - race
+  kenku:
+    aliases:
+      - cry
+      - k
+      - kenkurace
 
 
 

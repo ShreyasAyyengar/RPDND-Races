@@ -27,7 +27,10 @@ public class RaceManager {
     }
 
     public static void removeRace(UUID uuid) {
-        RACE_MAP.remove(uuid);
+        if (hasRace(uuid)) {
+            RACE_MAP.get(uuid).onDisable();
+            RACE_MAP.remove(uuid);
+        }
     }
 
     public static boolean hasRace(UUID uuid) {
@@ -42,7 +45,7 @@ public class RaceManager {
             AbstractRace race = getRace(uuid);
 
             if (SQLUtils.hasRow(uuid)) {
-                prepBuilder = RacesPlugin.getDatabase().preparedStatement("update races_info set current_race = '" + race.getName().toLowerCase() + "' where uuid = '" + uuid + "';");
+                prepBuilder = RacesPlugin.getDatabase().preparedStatement("update races_info set current_race = '" + race.getName() + "' where uuid = '" + uuid + "';");
             } else {
                 prepBuilder = RacesPlugin.getDatabase().preparedStatement("insert into races_info (uuid, current_race) values ('" + uuid + "', '" + race.getName().toLowerCase() + "');");
             }
@@ -60,9 +63,14 @@ public class RaceManager {
             UUID uuid = UUID.fromString(resultSet.getString("uuid"));
             String race = resultSet.getString("current_race");
 
-//            switch (race.toLowerCase()) {
-//                case "aarakocra" -> new Aarakocra(uuid);
-//            }
+            if (race == null) return;
+
+            try {
+                Class<?> subClasses = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + race);
+                subClasses.getDeclaredConstructor(UUID.class).newInstance(uuid);
+            } catch (ReflectiveOperationException x) {
+                x.printStackTrace();
+            }
         }
     }
 }
