@@ -53,7 +53,7 @@ public class RaceManager {
             if (SQLUtils.hasRow(uuid)) {
                 prepBuilder = RacesPlugin.getDatabase().preparedStatement("update races_info set current_race = '" + race.getName() + "' where uuid = '" + uuid + "';");
             } else {
-                prepBuilder = RacesPlugin.getDatabase().preparedStatement("insert into races_info (uuid, current_race) values ('" + uuid + "', '" + race.getName().toLowerCase() + "');");
+                prepBuilder = RacesPlugin.getDatabase().preparedStatement("insert into races_info (uuid, current_race) values ('" + uuid + "', '" + race.getName() + "');");
             }
 
             prepBuilder.executeUpdate();

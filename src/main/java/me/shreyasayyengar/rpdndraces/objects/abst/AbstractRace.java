@@ -3,7 +3,6 @@ package me.shreyasayyengar.rpdndraces.objects.abst;
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.events.HandSwap;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.RequiredSetup;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
@@ -48,7 +47,7 @@ public abstract class AbstractRace implements Listener {
     protected int cooldownTime;
 
     /**
-     * startTask is a static method that is called by the Main class to start the countdown manager. All cooldowns
+     * startTask is a static method that is called by the {@link RacesPlugin} class to start the countdown manager. All cooldowns
      * are handled by the startTask method.
      */
     public static void startTask() {
@@ -76,15 +75,11 @@ public abstract class AbstractRace implements Listener {
         this.player = Bukkit.getPlayer(uuid);
         RaceManager.setRace(uuid, this);
 
-        if (this instanceof TaskedRace taskedRace) {
-            setRegisteredTask(taskedRace.getRaceTask());
-        }
-
-        if (this instanceof RequiredSetup setup) {
-            setup.setupPlayer();
-        }
-
         runUnsafeActions(() -> {
+            if (this instanceof TaskedRace taskedRace) {
+                setRegisteredTask(taskedRace.getRaceTask());
+            }
+
             if (this instanceof PassiveAbilities passiveAbilities) {
                 passiveAbilities.activatePassiveAbilities();
             }
@@ -104,7 +99,7 @@ public abstract class AbstractRace implements Listener {
     /**
      * The runUnsafeActions method is used to run actions that are not safe to run, due to the possibility of
      * <strong>the {@link Player} being null.</strong> This method can be used inside BukkitRunnables or methods that are part of the
-     * {@link TaskedRace}, {@link PassiveAbilities}, and {@link RequiredSetup} classes. A void action is required to be passed in, which will
+     * {@link TaskedRace} and {@link PassiveAbilities} classes. A void action is required to be passed in, which will
      * be run if the {@link Player} is not null. If the {@link Player} is null, nothing will be run. <p></p>
      * This method is useful for things like activating passive abilities, or sending messages to the player, etc,
      * without having to worry about null pointers. <i>(and tbh im lazy af :>)</i>
@@ -117,9 +112,11 @@ public abstract class AbstractRace implements Listener {
                 this.player = Bukkit.getPlayer(uuid);
                 action.run();
             }
-        } else {
-            System.out.println("Could not perform actions since player was null " + uuid);
         }
+    }
+
+    public final String getDisplayName() {
+        return getName().replace("-", " ");
     }
 
     public final boolean checkCooldown() {

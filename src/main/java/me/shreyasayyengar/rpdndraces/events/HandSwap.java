@@ -28,7 +28,7 @@ public class HandSwap implements Listener {
                 player.playSound(player.getLocation(), race.getSound(), 1, 1);
 
                 if (race.getRaceCooldown() == 0) return;
-                player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &aYou activated your " + race.getName().replace("-", " ") + " skill!"));
+                player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &aYou activated your " + race.getDisplayName() + " skill!"));
             }
         }
     }
