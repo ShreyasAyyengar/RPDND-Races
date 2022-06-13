@@ -35,7 +35,6 @@ public class Gith extends AbstractRace {
 
     @Override
     public void onDisable() {
-
     }
 
     @Override

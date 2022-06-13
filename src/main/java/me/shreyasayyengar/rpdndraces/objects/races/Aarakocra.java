@@ -1,7 +1,7 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.Glideable;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -9,12 +9,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.UUID;
 
-public class Aarakocra extends AbstractRace implements InventoryRequirement {
+public class Aarakocra extends AbstractRace implements Glideable {
 
     public static List<String> getItemLore() {
 
@@ -31,16 +30,11 @@ public class Aarakocra extends AbstractRace implements InventoryRequirement {
 
     @Override
     public void onSwap() {
-        if (player.isGliding()) {
-            player.setVelocity(player.getEyeLocation().getDirection().normalize().multiply(3.5));
-        } else {
-            player.setVelocity(player.getVelocity().add(new Vector(0, 3, 0)));
-        }
+        RaceUtils.startGliding(player);
     }
 
     @Override
     public void onDisable() {
-        player.getInventory().setChestplate(null);
     }
 
     @Override

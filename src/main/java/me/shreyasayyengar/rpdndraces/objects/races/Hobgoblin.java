@@ -24,7 +24,6 @@ public class Hobgoblin extends AbstractRace {
 
     @Override
     public void onSwap() {
-        // Nightvision 2, Strength 2, Regeneration 2 for 15
         RaceUtils.addPotionEffect(player, PotionEffectType.NIGHT_VISION, 15, 2);
         RaceUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 15, 2);
         RaceUtils.addPotionEffect(player, PotionEffectType.REGENERATION, 15, 2);

@@ -2,8 +2,7 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import org.bukkit.Sound;
-import org.bukkit.entity.Animals;
-import org.bukkit.entity.Mob;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -79,11 +78,11 @@ public class YuantiPureblood extends AbstractRace {
         Player player = event.getPlayer();
 
         if (isThisRace(player)) {
-            player.getLocation().getNearbyLivingEntities(5, 5, 5, livingEntity -> livingEntity instanceof Animals).forEach(livingEntity -> {
-                ((Mob) livingEntity).setTarget(player);
-            });
+            player.getLocation().getNearbyLivingEntities(5, 5, 5, livingEntity -> !(livingEntity instanceof Monster)).forEach(passiveMob -> {
+                if (passiveMob.isLeashed()) return;
 
-            // TODO check
+                passiveMob.setLeashHolder(player);
+            });
         }
     }
 }

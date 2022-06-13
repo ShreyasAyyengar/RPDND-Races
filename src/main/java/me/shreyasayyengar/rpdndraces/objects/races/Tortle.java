@@ -1,14 +1,17 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.BoostedDiet;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-public class Tortle extends AbstractRace implements PassiveAbilities {
+public class Tortle extends AbstractRace implements PassiveAbilities, BoostedDiet {
 
     private boolean potions = false;
 
@@ -45,7 +48,6 @@ public class Tortle extends AbstractRace implements PassiveAbilities {
 
     @Override
     public void onDisable() {
-
     }
 
     @Override
@@ -63,5 +65,18 @@ public class Tortle extends AbstractRace implements PassiveAbilities {
         RaceUtils.addPotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE, 1000000, 3);
     }
 
-    // TODO implement boosteddiet
+    @Override
+    public Collection<Material> getBoostedFoods() {
+        return List.of(
+                Material.COD,
+                Material.SALMON,
+                Material.PUFFERFISH,
+                Material.TROPICAL_FISH
+        );
+    }
+
+    @Override
+    public boolean allowsRaw() {
+        return false;
+    }
 }

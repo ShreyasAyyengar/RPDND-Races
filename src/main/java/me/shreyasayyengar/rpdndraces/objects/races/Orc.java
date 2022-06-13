@@ -2,6 +2,7 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.data.BlockData;
@@ -12,7 +13,7 @@ import org.bukkit.util.Vector;
 import java.util.List;
 import java.util.UUID;
 
-public class Orc extends AbstractRace {
+public class Orc extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
@@ -77,5 +78,10 @@ public class Orc extends AbstractRace {
     @Override
     public Sound getSound() {
         return Sound.ENTITY_RAVAGER_ATTACK;
+    }
+
+    @Override
+    public void activatePassiveAbilities() {
+        RaceUtils.addPotionEffect(player, PotionEffectType.NIGHT_VISION, 1000000, 255);
     }
 }

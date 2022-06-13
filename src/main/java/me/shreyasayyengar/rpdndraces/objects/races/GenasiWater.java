@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class GenasiWater extends AbstractGenasi {
 
-    private boolean nightVision = false;
+    private boolean potion = false;
 
     public static List<String> getItemLore() {
 
@@ -37,14 +37,20 @@ public class GenasiWater extends AbstractGenasi {
     }
 
     @Override
+    public int getRaceCooldown() {
+        return 0;
+    }
+
+    @Override
     public void onSwap() {
-        RaceUtils.addPotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 6, 1);
-        if (!nightVision) {
+        if (!potion) {
+            RaceUtils.addPotionEffect(player, PotionEffectType.DOLPHINS_GRACE, 6, 1);
             RaceUtils.addPotionEffect(player, PotionEffectType.NIGHT_VISION, 3, 3);
-            nightVision = true;
+            potion = true;
         } else {
+            player.removePotionEffect(PotionEffectType.DOLPHINS_GRACE);
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-            nightVision = false;
+            potion = false;
         }
     }
 

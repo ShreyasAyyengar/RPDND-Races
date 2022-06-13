@@ -1,12 +1,8 @@
 package me.shreyasayyengar.rpdndraces.utils;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.io.IOException;
 import java.net.URI;
@@ -61,39 +57,9 @@ public class Utils {
         try {
             Class<?> raceClass = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + chosenRace);
 
-            if (InventoryRequirement.class.isAssignableFrom(raceClass)) {
-                ItemStack itemStack = new ItemStack(Material.ELYTRA);
-                ItemMeta itemMeta = itemStack.getItemMeta();
-                itemMeta.setLocalizedName("not-removable");
-                itemStack.setItemMeta(itemMeta);
-
-                ItemStack[] contents = player.getInventory().getContents();
-
-                boolean success = false;
-                for (int i = 0; i < contents.length; i++) {
-                    if (contents[i] == null) {
-
-                        if (player.getInventory().getChestplate() != null) {
-
-                            ItemStack chestplate = player.getInventory().getChestplate();
-                            player.getInventory().setItem(i, chestplate);
-                        }
-
-                        player.getInventory().setChestplate(itemStack);
-                        success = true;
-                        break;
-                    }
-                }
-
-                if (!success) {
-                    player.sendMessage(colourise("&cYou do not have enough space in your inventory to equip the necessary items (chestplate)!"));
-                }
-            }
-
             raceClass.getDeclaredConstructor(UUID.class).newInstance(player.getUniqueId());
 
         } catch (ReflectiveOperationException ignored) {
-            ignored.printStackTrace();
         }
     }
 }

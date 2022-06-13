@@ -25,8 +25,8 @@ public class Bugbear extends AbstractRace {
     @Override
     public void onSwap() {
         RaceUtils.teleportForward(player, 10);
-        RaceUtils.addPotionEffect(player,PotionEffectType.SPEED, 15, 1);
-        RaceUtils.addPotionEffect(player,PotionEffectType.INCREASE_DAMAGE, 15, 1);
+        RaceUtils.addPotionEffect(player,PotionEffectType.SPEED, 15, 2);
+        RaceUtils.addPotionEffect(player,PotionEffectType.INCREASE_DAMAGE, 15, 2);
     }
 
     @Override

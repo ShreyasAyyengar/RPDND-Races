@@ -38,7 +38,6 @@ public class Warforged extends AbstractRace implements Appetitless {
 
     @Override
     public void onDisable() {
-
     }
 
     @Override
@@ -59,5 +58,4 @@ public class Warforged extends AbstractRace implements Appetitless {
             }
         }
     }
-
 }

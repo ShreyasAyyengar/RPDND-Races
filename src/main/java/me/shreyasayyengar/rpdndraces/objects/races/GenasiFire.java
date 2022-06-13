@@ -54,6 +54,11 @@ public class GenasiFire extends AbstractGenasi implements TaskedRace {
     @Override
     public void onSwap() {
         light = !light;
+
+        if (!light) {
+            lightedSources.forEach(location -> setLight(location, 0));
+            lightedSources.clear();
+        }
     }
 
     @Override

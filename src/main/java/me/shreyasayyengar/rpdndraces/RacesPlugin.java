@@ -1,5 +1,6 @@
 package me.shreyasayyengar.rpdndraces;
 
+import de.slikey.effectlib.EffectManager;
 import me.shreyasayyengar.rpdndraces.commands.KenkuCommand;
 import me.shreyasayyengar.rpdndraces.commands.RaceCommand;
 import me.shreyasayyengar.rpdndraces.events.*;
@@ -21,17 +22,24 @@ public final class RacesPlugin extends JavaPlugin {
 
     public static final String PREFIX = Utils.colourise("&6&l[&c&lRaces&6&l]");
 
+    private EffectManager effectManager;
     private MySQL database;
     private MenuManager menuManager;
 
     public static RacesPlugin getInstance() {
         return RacesPlugin.getPlugin(RacesPlugin.class);
     }
+
     public static MySQL getDatabase() {
         return getInstance().database;
     }
+
     public static MenuManager getMenuManager() {
         return getInstance().menuManager;
+    }
+
+    public static EffectManager getEffectManager() {
+        return getInstance().effectManager;
     }
 
     @Override
@@ -48,6 +56,7 @@ public final class RacesPlugin extends JavaPlugin {
         AbstractRace.startTask();
 
         this.menuManager = new MenuManager(this);
+        this.effectManager = new EffectManager(this);
 
         System.gc();
     }
@@ -60,10 +69,13 @@ public final class RacesPlugin extends JavaPlugin {
     private void registerEvents() {
         Stream.of(
                 new Join(),
-                new HandSwap(),
                 new Leave(),
+                new HandSwap(),
+                new Interact(),
+                new PostRespawn(),
                 new FoodLevelChange(),
-                new ItemConsume()
+                new ItemConsume(),
+                new EntityGlide()
         ).forEach(event -> this.getServer().getPluginManager().registerEvents(event, this));
     }
 
@@ -130,7 +142,7 @@ public final class RacesPlugin extends JavaPlugin {
             e.printStackTrace();
         }
 
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
@@ -146,5 +158,10 @@ public final class RacesPlugin extends JavaPlugin {
 
 }
 
-// TODO: Perhaps rethink the task system in AbstractRace and its impls; it's a bit messy;
 // TODO: find a fix for dupe code in Centaur, Satyr and Minotaur (create an interface with SpecialMovement?
+// TODO: Refactor Autoclosable try-with-resources for SQL queries
+
+/*
+ TODO GENERAL TESTING
+  - Fix all these console errors
+ */

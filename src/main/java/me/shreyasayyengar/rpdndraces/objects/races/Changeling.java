@@ -4,6 +4,7 @@ import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.menu.MenuItem;
+import me.shreyasayyengar.rpdndraces.menu.interfaces.Menu;
 import me.shreyasayyengar.rpdndraces.menu.interfaces.MenuDisplay;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
@@ -22,7 +23,6 @@ public class Changeling extends AbstractRace {
     public static final Collection<UUID> TO_REMOVE = new ArrayList<>();
 
     private static final Map<UUID, Integer> DISGUISES_MAP = new HashMap<>();
-    private boolean isLooping = false;
 
     public static List<String> getItemLore() {
 
@@ -36,6 +36,7 @@ public class Changeling extends AbstractRace {
     public Changeling(UUID uuid) {
         super(uuid);
 
+        boolean isLooping = false;
         if (!isLooping) {
             checkDisguises();
             isLooping = true;
@@ -91,6 +92,8 @@ public class Changeling extends AbstractRace {
                 whoClicked.closeInventory();
             }));
         }
+
+        RacesPlugin.getMenuManager().openMenu(Menu.create(disguisesGUI.build()), player, 54);
     }
 
     @Override

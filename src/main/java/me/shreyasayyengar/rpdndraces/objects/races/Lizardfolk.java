@@ -7,7 +7,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
@@ -64,13 +63,8 @@ public class Lizardfolk extends AbstractRace implements BoostedDiet {
     }
 
     @Override
-    public boolean justRaw() {
+    public boolean allowsRaw() {
         return true;
-    }
-
-    @Override
-    public int getFoodPoints() {
-        return 0;
     }
 
     @EventHandler
@@ -81,19 +75,6 @@ public class Lizardfolk extends AbstractRace implements BoostedDiet {
                 if (event.getCause() == EntityDamageEvent.DamageCause.CONTACT) {
                     event.setCancelled(true);
                 }
-            }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
-        Player player = event.getPlayer();
-
-        if (isThisRace(player)) {
-            if (event.getItem().getItemMeta().getDisplayName().contains("Raw")) {
-                event.setCancelled(true);
-                event.getItem().subtract();
-                player.setFoodLevel(player.getFoodLevel() + 8);
             }
         }
     }

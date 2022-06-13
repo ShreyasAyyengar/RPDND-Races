@@ -2,6 +2,7 @@ package me.shreyasayyengar.rpdndraces.commands;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.menu.race.RaceMenuManager;
+import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Bukkit;
@@ -35,8 +36,13 @@ public class RaceCommand implements CommandExecutor {
                 return false;
             }
 
+
             if (args.length != 2) {
-                player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cInvalid syntax. Please use /race <reset|forceset> <player>"));
+                if (player.hasPermission("races.manage")) {
+                    player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cInvalid syntax. Please use /race <reset|forceset> <player>"));
+                } else {
+                    player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cInvalid syntax. Please use /race <on|off>"));
+                }
             }
 
             switch (args[0].toLowerCase()) {
@@ -49,11 +55,12 @@ public class RaceCommand implements CommandExecutor {
                             return false;
                         }
 
+                        target.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYour race has been reset!"));
                         RaceManager.removeRace(target.getUniqueId());
+                        target.getActivePotionEffects().clear();
 
                     } else sender.sendMessage(Utils.colourise("&aYou do not have permission to execute this command!"));
                 }
-
 
                 case "forceset" -> {
                     if (sender.hasPermission("races.manage")) {
@@ -65,6 +72,7 @@ public class RaceCommand implements CommandExecutor {
                         }
 
                         RaceManager.removeRace(target.getUniqueId());
+                        target.getActivePotionEffects().clear();
 
                         try {
                             Class<?> subClasses = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + args[2]);
@@ -77,9 +85,20 @@ public class RaceCommand implements CommandExecutor {
 
                 }
 
-            }
+                case "on", "off" -> {
+                    if (!RaceManager.hasRace(player.getUniqueId())) {
+                        player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou do not have a race selected!"));
+                    }
 
+                    AbstractRace race = RaceManager.getRace(player.getUniqueId());
+                    race.setHandSwapEnabled(!race.isHandSwapEnabled());
+
+                    player.sendMessage(Utils.colourise(race.isHandSwapEnabled() ? RacesPlugin.PREFIX + " &cYou have &aenabled your Hand-Swap ability!" : RacesPlugin.PREFIX + " &cYou have &cdisabled your Hand-Swap ability!"));
+                }
+
+            }
         }
+
         return false;
     }
 }

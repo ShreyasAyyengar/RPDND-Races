@@ -5,9 +5,6 @@ import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.BoostedDiet;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -32,7 +29,7 @@ public class Tabaxi extends AbstractRace implements BoostedDiet {
 
     @Override
     public void onSwap() {
-        RaceUtils.pushForward(player, 3);
+        RaceUtils.pushForward(player);
         RaceUtils.addPotionEffect(player, PotionEffectType.SPEED, 3, 10);
 
         new BukkitRunnable() {
@@ -50,7 +47,6 @@ public class Tabaxi extends AbstractRace implements BoostedDiet {
 
     @Override
     public void onDisable() {
-
     }
 
     @Override
@@ -63,38 +59,18 @@ public class Tabaxi extends AbstractRace implements BoostedDiet {
         return null;
     }
 
-    @EventHandler
-    public void onPlayerItemConsume(PlayerItemConsumeEvent event) {
-        Player player = event.getPlayer();
-
-        if (isThisRace(player)) {
-            Collection<Material> unaffectedFoods = List.of(
-                    Material.COD,
-                    Material.SALMON,
-                    Material.PUFFERFISH,
-                    Material.TROPICAL_FISH
-            );
-
-            if (unaffectedFoods.contains(event.getItem().getType())) {
-                event.setCancelled(true);
-                event.getItem().subtract();
-                player.setFoodLevel(player.getFoodLevel() + 8);
-            }
-        }
-    }
-
     @Override
     public Collection<Material> getBoostedFoods() {
-        return null;
+        return List.of(
+                Material.COD,
+                Material.SALMON,
+                Material.PUFFERFISH,
+                Material.TROPICAL_FISH
+        );
     }
 
     @Override
-    public boolean justRaw() {
+    public boolean allowsRaw() {
         return true;
-    }
-
-    @Override
-    public int getFoodPoints() {
-        return 0;
     }
 }

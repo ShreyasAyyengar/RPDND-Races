@@ -57,7 +57,7 @@ public class Human extends AbstractRace {
 
         if (isThisRace(player)) {
 
-            if (player.getLocation().getNearbyPlayers(5).size() > 0) {
+            if (player.getLocation().getNearbyPlayers(5).size() > 1) {
                 RaceUtils.addPotionEffect(player, PotionEffectType.HEALTH_BOOST, 10, 5);
             } else {
                 player.removePotionEffect(PotionEffectType.HEALTH_BOOST);

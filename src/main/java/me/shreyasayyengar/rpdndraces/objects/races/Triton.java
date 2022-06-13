@@ -1,13 +1,16 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.BoostedDiet;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-public class Triton extends AbstractRace {
+public class Triton extends AbstractRace implements BoostedDiet {
 
     private boolean potions = false;
 
@@ -59,6 +62,13 @@ public class Triton extends AbstractRace {
         return Sound.ENTITY_ZOMBIE_CONVERTED_TO_DROWNED;
     }
 
-    // TODO implement boosteddiet
+    @Override
+    public Collection<Material> getBoostedFoods() {
+        return null;
+    }
 
+    @Override
+    public boolean allowsRaw() {
+        return false;
+    }
 }

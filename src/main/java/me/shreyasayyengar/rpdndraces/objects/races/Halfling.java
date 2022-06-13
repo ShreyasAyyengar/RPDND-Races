@@ -35,7 +35,7 @@ public class Halfling extends AbstractRace {
 
         // chose ranomd
         PotionEffectType potion = potions.toArray(new PotionEffectType[0])[(int) (Math.random() * potions.size())];
-        RaceUtils.addPotionEffect(player, potion, 15, 2);
+        RaceUtils.addPotionEffect(player, potion, 15, 3);
     }
 
     @Override

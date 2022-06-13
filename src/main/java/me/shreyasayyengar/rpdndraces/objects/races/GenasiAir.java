@@ -1,20 +1,15 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
-import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractGenasi;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.Glideable;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityToggleGlideEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
-public class GenasiAir extends AbstractGenasi {
+public class GenasiAir extends AbstractGenasi implements Glideable {
 
     public static List<String> getItemLore() {
 
@@ -41,21 +36,7 @@ public class GenasiAir extends AbstractGenasi {
 
     @Override
     public void onSwap() {
-        player.setVelocity(new Vector(0, 3.85, 0));
-        new BukkitRunnable() {
-
-            @Override
-            public void run() {
-                player.setGliding(true);
-            }
-        }.runTaskLater(RacesPlugin.getInstance(), 10L);
-
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                player.setGliding(false);
-            }
-        }.runTaskLater(RacesPlugin.getInstance(), 1200L);
+        RaceUtils.startGliding(player);
     }
 
     @Override
@@ -71,16 +52,5 @@ public class GenasiAir extends AbstractGenasi {
     @Override
     public int getRaceCooldown() {
         return 120;
-    }
-
-    @EventHandler
-    public void onEntityToggleGlide(EntityToggleGlideEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            if (isThisRace(player)) {
-                if (!player.isOnGround()) {
-                    event.setCancelled(true);
-                }
-            }
-        }
     }
 }

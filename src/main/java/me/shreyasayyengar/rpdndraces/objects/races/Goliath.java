@@ -29,7 +29,7 @@ public class Goliath extends AbstractRace {
 
     @Override
     public void onSwap() {
-        RaceUtils.addPotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE, 2, 15);
+        RaceUtils.addPotionEffect(player, PotionEffectType.DAMAGE_RESISTANCE, 15, 2);
 
         player.setVelocity(player.getVelocity().add(new Vector(0, 1.2, 0)));
 

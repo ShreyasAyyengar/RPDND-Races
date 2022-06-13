@@ -21,7 +21,7 @@ public final class MenuManager implements Listener {
     private final Map<UUID, Menu> openedMenu;
 
     public MenuManager(JavaPlugin plugin) {
-        this.openedMenu = new ConcurrentHashMap<>();;
+        this.openedMenu = new ConcurrentHashMap<>();
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 

@@ -21,11 +21,12 @@ public class ItemConsume implements Listener {
 
         AbstractRace race = RaceManager.getRace(uuid);
 
-        System.out.println(player.getFoodLevel() + "<- food level");
-
         if (race instanceof BoostedDiet diet) {
 
-            if (diet.justRaw()) {
+            if (diet.allowsRaw()) {
+
+                if (event.getItem().getI18NDisplayName() == null) return;
+
                 if (event.getItem().getI18NDisplayName().toLowerCase().contains("raw")) {
                     player.setFoodLevel(player.getFoodLevel() + 5);
                     return;
@@ -33,7 +34,8 @@ public class ItemConsume implements Listener {
             }
 
             if (diet.getBoostedFoods().contains(event.getItem().getType())) {
-                player.setFoodLevel(diet.getFoodPoints());
+                event.getItem().subtract();
+                player.setFoodLevel(player.getFoodLevel() + 5);
             }
         }
     }

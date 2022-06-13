@@ -10,3 +10,5 @@ package me.shreyasayyengar.rpdndraces.objects.interfaces;
  */
 public interface Appetitless {
 }
+
+// TODO check with Kyazi server to compatible with /hungry

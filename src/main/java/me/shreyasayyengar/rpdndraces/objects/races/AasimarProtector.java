@@ -1,12 +1,12 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractAasimar;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.Glideable;
 
 import java.util.List;
 import java.util.UUID;
 
-public class AasimarProtector extends AbstractAasimar implements InventoryRequirement {
+public class AasimarProtector extends AbstractAasimar implements Glideable {
 
     public static List<String> getItemLore() {
 
@@ -28,6 +28,5 @@ public class AasimarProtector extends AbstractAasimar implements InventoryRequir
 
     @Override
     public void onDisable() {
-        player.getInventory().setChestplate(null);
     }
 }

@@ -36,13 +36,7 @@ public class ElfDrow extends AbstractElf {
                 if (count == 0) cancel();
 
                 runUnsafeActions(() -> {
-                    for (int i = 0; i < 4; i++) {
-                        spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, i, 0));
-                        spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, i + 0.5, 0));
-                        spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, i + 0.25, 0));
-                        spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, i - 0.25, 0));
-                        spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, i - 0.5, 0));
-                    }
+                    spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, 2, 0));
                 });
 
                 count--;

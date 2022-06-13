@@ -1,8 +1,10 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
+import de.slikey.effectlib.EffectManager;
+import de.slikey.effectlib.effect.DragonEffect;
+import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import org.bukkit.Location;
-import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -33,27 +35,15 @@ public class Dragonborn extends AbstractRace {
     }
 
     private void createParticles() {
+        EffectManager effectManager = RacesPlugin.getEffectManager();
+        DragonEffect effect = new DragonEffect(effectManager);
+        Location location = player.getLocation().add(0, 1.5, 0);
 
-        Location loc = player.getLocation();
-        for (double numberofcircles = 0; numberofcircles <= 1; numberofcircles += 0.1) {
-            for (double angle = 0; angle <= Math.PI * 2; angle += Math.PI / 8) {
-                double x = Math.cos(angle) * numberofcircles;
-                double y = numberofcircles;
-                double z = Math.sin(angle) * numberofcircles;
-                loc.add(x, y, z);
-                player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
-                loc.subtract(x, y, z);
+        location.setDirection(player.getEyeLocation().getDirection());
 
-                for (double radius = 1; radius >= 0; radius -= 0.1) {
-                    double x2 = 1.5 * (Math.cos(angle) * radius);
-                    double y2 = 1;
-                    double z2 = 1.5 * (Math.sin(angle) * radius);
-                    loc.add(x2, y2, z2);
-                    player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
-                    loc.subtract(x2, y2, z2);
-                }
-            }
-        }
+        effect.setLocation(location);
+        effect.duration = 1500;
+        effect.start();
     }
 
     @Override
@@ -73,7 +63,7 @@ public class Dragonborn extends AbstractRace {
 
     @Override
     public Sound getSound() {
-        return null;
+        return Sound.ENTITY_ENDER_DRAGON_GROWL;
     }
 
     @EventHandler

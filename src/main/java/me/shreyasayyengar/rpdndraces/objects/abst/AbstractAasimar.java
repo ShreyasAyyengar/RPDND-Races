@@ -6,7 +6,6 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.UUID;
@@ -36,13 +35,7 @@ public abstract class AbstractAasimar extends AbstractRace implements TaskedRace
 
     @Override
     public void onSwap() {
-        player.setVelocity(player.getVelocity().add(new Vector(0, 4.5, 0)));
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                runUnsafeActions(() -> player.getInventory().setChestplate(null));
-            }
-        }.runTaskLater(RacesPlugin.getInstance(), 60 * 20);
+        RaceUtils.startGliding(player);
     }
 
     @Override

@@ -1,11 +1,13 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractTiefling;
+import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
+import org.bukkit.util.RayTraceResult;
 
 import java.util.List;
 import java.util.UUID;
@@ -27,20 +29,23 @@ public class TieflingNormal extends AbstractTiefling {
 
     @Override
     public void onSwap() {
+        RayTraceResult rayTraceResult = player.getWorld().rayTraceEntities(player.getLocation().add(player.getEyeLocation().getDirection().multiply(3)), player.getEyeLocation().getDirection(), 7, 1);
 
-        Entity hitEntity = player.getWorld().rayTraceEntities(player.getLocation().add(player.getEyeLocation().getDirection().multiply(2)), player.getEyeLocation().getDirection(), 10, 1).getHitEntity();
+        if (rayTraceResult == null) return;
+
+        Entity hitEntity = rayTraceResult.getHitEntity();
 
         if (hitEntity == null) return;
         if (hitEntity.getType() == EntityType.PLAYER) return;
 
-        if (!(hitEntity instanceof LivingEntity entity)) return;
+        if (!(hitEntity instanceof Monster mob)) return;
 
         for (int i = 0; i < 15; i++) {
-            entity.getWorld().spawnParticle(Particle.FLAME, hitEntity.getLocation().add(0, 1, 0), 1, 1.5, 1.5, 1.5, 1.5);
-            entity.getWorld().spawnParticle(Particle.REDSTONE, hitEntity.getLocation().add(0, 1, 0), 1, 1.5, 1.5, 1.5, 1.5);
+            mob.getWorld().spawnParticle(Particle.FLAME, hitEntity.getLocation().add(0, 1, 0), 45, 1.5, 1.5, 1.5, 1.5);
+            mob.getWorld().spawnParticle(Particle.REDSTONE.builder().color(Color.RED).count(1).particle(), mob.getLocation().clone().add(0, 1, 0), 15, new Particle.DustOptions(Color.RED, 1));
         }
 
-        entity.setHealth(entity.getHealth() - 4);
+        mob.damage(4, player);
     }
 
     @Override
@@ -50,7 +55,6 @@ public class TieflingNormal extends AbstractTiefling {
 
     @Override
     public void onDisable() {
-
     }
 
     @Override
@@ -62,26 +66,4 @@ public class TieflingNormal extends AbstractTiefling {
     public Sound getSound() {
         return null;
     }
-
-//    public void spawnParticles(Location loc) {
-//        for (double numberofcircles = 0; numberofcircles <= 1; numberofcircles += 0.1) {
-//            for (double angle = 0; angle <= Math.PI * 2; angle += Math.PI / 8) {
-//                double x = (Math.cos(angle) * numberofcircles); // multiply the x by 1 then 1 gets smaller each time we increment numberofcircles by 0.1
-//                double y = numberofcircles; // each circle has a distance of 0.1
-//                double z = (Math.sin(angle) * numberofcircles); // multiply the z by 1 then 1 gets smaller each time we increment numberofcircles by 0.1
-//                loc.add(x, y, z);
-//                player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
-//                loc.subtract(x, y, z);
-//                // final circle
-//                for (double radius = 1; radius >= 0; radius -= 0.1) {
-//                    double x2 = Math.cos(angle) * radius;
-//                    double y2 = 1; // Max y of the cone
-//                    double z2 = Math.sin(angle) * radius;
-//                    loc.add(x2, y2, z2);
-//                    player.spawnParticle(Particle.FLAME, loc, 1, 0, 0, 0, 0);
-//                    loc.subtract(x2, y2, z2);
-//                }
-//            }
-//        }
-//    }
 }

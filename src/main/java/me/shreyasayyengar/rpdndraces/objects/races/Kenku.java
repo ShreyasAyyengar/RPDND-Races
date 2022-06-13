@@ -47,5 +47,3 @@ public class Kenku extends AbstractRace {
         return null;
     }
 }
-
-// TODO add lore here

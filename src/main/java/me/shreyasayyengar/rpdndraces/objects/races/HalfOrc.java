@@ -1,13 +1,14 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.UUID;
 
-public class HalfOrc extends AbstractRace {
+public class HalfOrc extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
@@ -46,5 +47,10 @@ public class HalfOrc extends AbstractRace {
     @Override
     public Sound getSound() {
         return Sound.ENTITY_ENDER_DRAGON_GROWL;
+    }
+
+    @Override
+    public void activatePassiveAbilities() {
+        RaceUtils.addPotionEffect(player, PotionEffectType.NIGHT_VISION, 1000000, 255);
     }
 }

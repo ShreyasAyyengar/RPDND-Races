@@ -29,7 +29,7 @@ public class Centaur extends AbstractRace {
 
     @Override
     public void onSwap() {
-        RaceUtils.pushForward(player, 3);
+        RaceUtils.pushForward(player);
         RaceUtils.addPotionEffect(player, PotionEffectType.SPEED, 3, 10);
 
         new BukkitRunnable() {
@@ -68,11 +68,9 @@ public class Centaur extends AbstractRace {
                 return;
             }
 
-            if (player.isSprinting()) {
-                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_GALLOP, 1, 1);
-            } else {
-                player.playSound(player.getLocation(), Sound.ENTITY_HORSE_STEP, 1, 1);
-            }
+            if (!player.isOnGround()|| player.isSwimming() || player.isInWater()) return;
+
+            player.playSound(player.getLocation(), Sound.ENTITY_HORSE_STEP, 0.3F, 1);
         }
     }
 }

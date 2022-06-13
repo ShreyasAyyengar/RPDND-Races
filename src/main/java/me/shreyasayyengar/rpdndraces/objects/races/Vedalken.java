@@ -1,55 +1,55 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.Appetitless;
 import org.bukkit.Sound;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.UUID;
 
-public class Reborn extends AbstractRace implements Appetitless {
+public class Vedalken extends AbstractRace {
 
-    private boolean nightVision = false;
+    private boolean potions = false;
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("As the name implies, these people defy death. Be it through dark magic, through science, unfinished business or otherwise, they forge a path where their previous ones failed.");
-        List<String> active = List.of("Nightvision", "Regeneration 2");
-        List<String> passive = List.of("Dead Man's Needs");
+        List<String> lore = List.of("A race with a strong sense of curiosity and logica and a drive for perfection, for constant improvement.");
+        List<String> active = List.of("Partially Amphibious");
+        List<String> passive = List.of();
 
         return RaceUtils.formatLore(lore, active, passive);
     }
 
-    public Reborn(UUID uuid) {
+    public Vedalken(UUID uuid) {
         super(uuid);
     }
 
     @Override
     public void onSwap() {
-        if (!nightVision) {
+        if (!potions) {
             RaceUtils.addPotionEffect(player, PotionEffectType.NIGHT_VISION, 1000000, 255);
-            nightVision = true;
+            RaceUtils.addPotionEffect(player, PotionEffectType.WATER_BREATHING, 1000000, 255);
+            potions = true;
         } else {
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
-            nightVision = false;
+            player.removePotionEffect(PotionEffectType.WATER_BREATHING);
+            potions = false;
         }
-
-        RaceUtils.addPotionEffect(player, PotionEffectType.REGENERATION, 15, 2);
     }
 
     @Override
     public String getName() {
-        return "Reborn";
+        return "Vedalken";
     }
 
     @Override
     public void onDisable() {
+
     }
 
     @Override
     public int getRaceCooldown() {
-        return 20;
+        return 0;
     }
 
     @Override

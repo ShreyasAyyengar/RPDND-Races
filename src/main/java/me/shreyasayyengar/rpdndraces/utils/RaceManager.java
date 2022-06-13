@@ -65,8 +65,9 @@ public class RaceManager {
 
             if (race == null) return;
 
+
             try {
-                Class<?> subClasses = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + race);
+                Class<?> subClasses = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + race.replace("-", ""));
                 subClasses.getDeclaredConstructor(UUID.class).newInstance(uuid);
             } catch (ReflectiveOperationException x) {
                 x.printStackTrace();

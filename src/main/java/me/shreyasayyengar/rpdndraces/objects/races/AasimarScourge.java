@@ -35,7 +35,7 @@ public class AasimarScourge extends AbstractAasimar {
             double x = Math.cos(radians);
             double z = Math.sin(radians);
             location.add(x, 0, z);
-            location.getWorld().spawnParticle(Particle.REDSTONE.builder().color(Color.RED).count(1).particle(), location.clone().add(0, 1, 0), 2, new Particle.DustOptions(color, 1));
+            location.getWorld().spawnParticle(Particle.REDSTONE.builder().color(Color.RED).count(1).particle(), location.clone().add(0, 1, 0), 1, new Particle.DustOptions(color, 1));
             location.subtract(x, 0, z);
         }
     }

@@ -56,6 +56,11 @@ public class GenasiEarth extends AbstractGenasi {
     }
 
     @Override
+    public int getRaceCooldown() {
+        return 0;
+    }
+
+    @Override
     public Sound getSound() {
         return Sound.ITEM_HOE_TILL;
     }
@@ -68,7 +73,6 @@ public class GenasiEarth extends AbstractGenasi {
             Location downOne = player.getLocation().clone().subtract(0, 1, 0);
             Location location = player.getLocation();
 
-            // TODO cobweb issue
             if (location.getBlock().getType() == SOUL_SAND) {
                 player.setWalkSpeed(0.38F);
             } else if (location.getBlock().getType() == SWEET_BERRY_BUSH) {

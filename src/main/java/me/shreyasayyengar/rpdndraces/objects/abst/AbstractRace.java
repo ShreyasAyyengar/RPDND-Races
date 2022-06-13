@@ -13,6 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
@@ -76,7 +77,7 @@ public abstract class AbstractRace implements Listener {
         RaceManager.setRace(uuid, this);
 
         if (this instanceof TaskedRace taskedRace) {
-            setRegisteredTask(taskedRace.getRaceTask());// TODO possibly running twice?
+            setRegisteredTask(taskedRace.getRaceTask());
         }
 
         if (this instanceof RequiredSetup setup) {
@@ -130,11 +131,20 @@ public abstract class AbstractRace implements Listener {
     }
 
     public final boolean isThisRace(Player player) {
+
+        if (RaceManager.getRace(player.getUniqueId()) == null) {
+            return false;
+        }
+
         return RaceManager.getRace(player.getUniqueId()).getName().equalsIgnoreCase(this.getName());
     }
 
     public final boolean isHandSwapEnabled() {
         return handSwapEnabled;
+    }
+
+    public void setHandSwapEnabled(boolean handSwapEnabled) {
+        this.handSwapEnabled = handSwapEnabled;
     }
 
     public final void setRegisteredTask(BukkitTask task) {
@@ -189,16 +199,30 @@ public abstract class AbstractRace implements Listener {
             Vector direction = player.getEyeLocation().getDirection().multiply(blocks).setY(0.5);
             Location directionLoc = player.getLocation().add(direction);
             player.teleport(directionLoc);
-            player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
             player.getWorld().spawnParticle(Particle.SPELL_WITCH, player.getLocation().add(0, 0.5, 0), 5);
         }
 
-        public static void pushForward(Player player, int blocks) {
-            player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation().add(0, 0.5, 0), 15);
-            Vector direction = player.getEyeLocation().getDirection().multiply(blocks).setY(0.5);
+        public static void pushForward(Player player) {
+            BlockData blockData = player.getLocation().getBlock().getBlockData();
+            player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation().add(0, 0.5, 0), 15, blockData);
+            Vector direction = player.getEyeLocation().getDirection().multiply(2).setY(0.5);
             player.setVelocity(direction);
             player.playSound(player.getLocation(), Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
-            player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation().add(0, 0.5, 0), 15);
+            player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation().add(0, 0.5, 0), 15, blockData);
+        }
+
+        public static void startGliding(Player player) {
+            if (!player.isGliding()) {
+                player.setVelocity(player.getVelocity().add(new Vector(0, 3, 0)));
+
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        player.setGliding(true);
+                    }
+                }.runTaskLater(RacesPlugin.getInstance(), 10L);
+            } else player.setVelocity(player.getEyeLocation().getDirection().normalize().multiply(3.5));
+
         }
 
         public static void addPotionEffect(Player player, PotionEffectType type, int seconds, int amplifier) {
@@ -214,6 +238,12 @@ public abstract class AbstractRace implements Listener {
             });
 
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§o§cThere are §b" + (number.get() - 1) + "§c players nearby!"));
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§o§cThere are §b" + (number.get() - 1) + "§c players nearby!"));
+                }
+            }.runTaskLater(RacesPlugin.getInstance(), 40);
         }
 
         public static List<String> formatLore(List<String> lore, List<String> active, List<String> passive) {
@@ -254,5 +284,3 @@ public abstract class AbstractRace implements Listener {
         }
     }
 }
-
-// TODO: configure how inventory requirements will work (Aarakocra, TieflingWinged mainly)

@@ -1,14 +1,13 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractTiefling;
-import me.shreyasayyengar.rpdndraces.objects.interfaces.InventoryRequirement;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.Glideable;
 import org.bukkit.Sound;
-import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.UUID;
 
-public class TieflingWinged extends AbstractTiefling implements InventoryRequirement {
+public class TieflingWinged extends AbstractTiefling implements Glideable {
 
     public static List<String> getItemLore() {
 
@@ -25,11 +24,7 @@ public class TieflingWinged extends AbstractTiefling implements InventoryRequire
 
     @Override
     public void onSwap() {
-        if (player.isGliding()) {
-            player.setVelocity(player.getEyeLocation().getDirection().normalize().multiply(3.5));
-        } else {
-            player.setVelocity(player.getVelocity().add(new Vector(0, 3, 0)));
-        }
+        RaceUtils.startGliding(player);
     }
 
     @Override
@@ -39,7 +34,6 @@ public class TieflingWinged extends AbstractTiefling implements InventoryRequire
 
     @Override
     public void onDisable() {
-        player.getInventory().setChestplate(null);
     }
 
     @Override

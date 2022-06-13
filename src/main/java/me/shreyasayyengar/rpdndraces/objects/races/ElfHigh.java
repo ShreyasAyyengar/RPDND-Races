@@ -33,7 +33,6 @@ public class ElfHigh extends AbstractElf {
 
     @Override
     public void onDisable() {
-
     }
 
     @Override

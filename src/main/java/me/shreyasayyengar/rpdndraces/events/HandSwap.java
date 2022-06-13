@@ -1,7 +1,9 @@
 package me.shreyasayyengar.rpdndraces.events;
 
+import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
+import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -24,6 +26,9 @@ public class HandSwap implements Listener {
                 race.onSwap();
                 race.setCooldown();
                 player.playSound(player.getLocation(), race.getSound(), 1, 1);
+
+                if (race.getRaceCooldown() == 0) return;
+                player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &aYou activated your " + race.getName().replace("-", " ") + " skill!"));
             }
         }
     }

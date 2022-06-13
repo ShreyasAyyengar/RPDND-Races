@@ -16,7 +16,5 @@ import java.util.Collection;
 public interface BoostedDiet {
     Collection<Material> getBoostedFoods();
 
-    boolean justRaw();
-
-    int getFoodPoints();
+    boolean allowsRaw();
 }
