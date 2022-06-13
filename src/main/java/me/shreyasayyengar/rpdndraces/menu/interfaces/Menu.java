@@ -1,7 +1,7 @@
 package me.shreyasayyengar.rpdndraces.menu.interfaces;
 
-import me.shreyasayyengar.rpdndraces.menu.MenuItem;
-import me.shreyasayyengar.rpdndraces.menu.SimpleMenu;
+import me.shreyasayyengar.rpdndraces.menu.objects.MenuItem;
+import me.shreyasayyengar.rpdndraces.menu.objects.SimpleMenu;
 import me.shreyasayyengar.rpdndraces.menu.adapter.DisplayApplication;
 import me.shreyasayyengar.rpdndraces.menu.adapter.InventoryAdapter;
 import org.bukkit.entity.Player;

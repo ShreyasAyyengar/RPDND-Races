@@ -1,6 +1,6 @@
 package me.shreyasayyengar.rpdndraces.menu.interfaces;
 
-import me.shreyasayyengar.rpdndraces.menu.MenuItem;
+import me.shreyasayyengar.rpdndraces.menu.objects.MenuItem;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.jetbrains.annotations.NotNull;

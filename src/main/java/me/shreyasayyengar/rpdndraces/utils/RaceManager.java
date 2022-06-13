@@ -30,6 +30,12 @@ public class RaceManager {
         if (hasRace(uuid)) {
             RACE_MAP.get(uuid).onDisable();
             RACE_MAP.remove(uuid);
+
+            try {
+                RacesPlugin.getDatabase().preparedStatement("delete from races_info where uuid = '" + uuid + "';").executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

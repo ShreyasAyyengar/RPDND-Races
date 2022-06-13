@@ -23,12 +23,12 @@ public class RaceCommand implements CommandExecutor {
 
             if (args.length == 0) {
                 if (RaceManager.hasRace(player.getUniqueId())) {
-                    player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou already have a race selected. Please contact an administrator to have it reset"));
+                    player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou already have a race selected. &c&nPlease contact an administrator to have it reset"));
                     return false;
                 }
 
                 try {
-                    RaceMenuManager.openRacesMenu(player);
+                    RaceMenuManager.openRacesMenu(player, 0);
                 } catch (Exception x) {
                     x.printStackTrace();
                 }
@@ -36,17 +36,25 @@ public class RaceCommand implements CommandExecutor {
                 return false;
             }
 
+            if (args.length == 1) {
+                switch (args[0].toLowerCase()) {
+                    case "on", "off" -> {
+                        if (!RaceManager.hasRace(player.getUniqueId())) {
+                            player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou do not have a race selected!"));
+                            return false;
+                        }
 
-            if (args.length != 2) {
-                if (player.hasPermission("races.manage")) {
-                    player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cInvalid syntax. Please use /race <reset|forceset> <player>"));
-                } else {
-                    player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cInvalid syntax. Please use /race <on|off>"));
+                        AbstractRace race = RaceManager.getRace(player.getUniqueId());
+                        race.setHandSwapEnabled(!race.isHandSwapEnabled());
+
+                        player.sendMessage(Utils.colourise(race.isHandSwapEnabled() ? RacesPlugin.PREFIX + " &cYou have &aenabled &cyour Hand-Swap ability!" : RacesPlugin.PREFIX + " &cYou have &cdisabled your Hand-Swap ability!"));
+                    }
                 }
             }
 
-            switch (args[0].toLowerCase()) {
-                case "reset" -> {
+            if (args.length == 2) {
+
+                if ("reset".equalsIgnoreCase(args[0])) {
                     if (sender.hasPermission("races.manage")) {
                         Player target = Bukkit.getPlayer(args[1]);
 
@@ -55,14 +63,22 @@ public class RaceCommand implements CommandExecutor {
                             return false;
                         }
 
-                        target.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYour race has been reset!"));
                         RaceManager.removeRace(target.getUniqueId());
                         target.getActivePotionEffects().clear();
 
+                        if (player.getUniqueId().equals(target.getUniqueId())) {
+                            player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYour race has been &areset&c!"));
+                        } else {
+                            player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &aResetting " + target.getName() + "'s current race."));
+                            target.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYour race has been &areset&c!"));
+                        }
+
                     } else sender.sendMessage(Utils.colourise("&aYou do not have permission to execute this command!"));
                 }
+            }
 
-                case "forceset" -> {
+            if (args.length == 3) {
+                if (args[2].equalsIgnoreCase("forceset")) {
                     if (sender.hasPermission("races.manage")) {
                         Player target = Bukkit.getPlayer(args[1]);
 
@@ -82,20 +98,7 @@ public class RaceCommand implements CommandExecutor {
                         }
 
                     } else sender.sendMessage(Utils.colourise("&aYou do not have permission to execute this command!"));
-
                 }
-
-                case "on", "off" -> {
-                    if (!RaceManager.hasRace(player.getUniqueId())) {
-                        player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou do not have a race selected!"));
-                    }
-
-                    AbstractRace race = RaceManager.getRace(player.getUniqueId());
-                    race.setHandSwapEnabled(!race.isHandSwapEnabled());
-
-                    player.sendMessage(Utils.colourise(race.isHandSwapEnabled() ? RacesPlugin.PREFIX + " &cYou have &aenabled your Hand-Swap ability!" : RacesPlugin.PREFIX + " &cYou have &cdisabled your Hand-Swap ability!"));
-                }
-
             }
         }
 

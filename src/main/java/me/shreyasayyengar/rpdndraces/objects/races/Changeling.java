@@ -3,7 +3,7 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.disguisetypes.PlayerDisguise;
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
-import me.shreyasayyengar.rpdndraces.menu.MenuItem;
+import me.shreyasayyengar.rpdndraces.menu.objects.MenuItem;
 import me.shreyasayyengar.rpdndraces.menu.interfaces.Menu;
 import me.shreyasayyengar.rpdndraces.menu.interfaces.MenuDisplay;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;

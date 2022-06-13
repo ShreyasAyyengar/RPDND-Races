@@ -1,4 +1,4 @@
-package me.shreyasayyengar.rpdndraces.menu;
+package me.shreyasayyengar.rpdndraces.menu.objects;
 
 import me.shreyasayyengar.rpdndraces.menu.interfaces.MenuClickCallback;
 import org.bukkit.inventory.ItemStack;

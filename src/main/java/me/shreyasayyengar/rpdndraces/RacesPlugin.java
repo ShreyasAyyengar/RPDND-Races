@@ -137,7 +137,6 @@ public final class RacesPlugin extends JavaPlugin {
             allRaces.sort(Comparator.comparing(aClass -> aClass.getSimpleName().toLowerCase()));
 
             return allRaces;
-
         } catch (Exception e) {
             e.printStackTrace();
         }
