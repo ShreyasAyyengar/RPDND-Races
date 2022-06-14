@@ -35,7 +35,7 @@ public class Reborn extends AbstractRace implements Appetitless {
             nightVision = false;
         }
 
-        RaceUtils.addPotionEffect(player, PotionEffectType.REGENERATION, 15, 2);
+        RaceUtils.addPotionEffect(player, PotionEffectType.REGENERATION, 10, 2);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class Reborn extends AbstractRace implements Appetitless {
 
     @Override
     public int getRaceCooldown() {
-        return 20;
+        return 10;
     }
 
     @Override

@@ -1,16 +1,14 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.objects.interfaces.SpecialMovement;
 import org.bukkit.Sound;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
 import java.util.UUID;
 
-public class Satyr extends AbstractRace {
+public class Satyr extends AbstractRace implements SpecialMovement {
 
     public static List<String> getItemLore() {
 
@@ -49,20 +47,5 @@ public class Satyr extends AbstractRace {
     @Override
     public Sound getSound() {
         return Sound.ENTITY_HORSE_GALLOP;
-    }
-
-    @EventHandler
-    public void onPlayerMove(PlayerMoveEvent event) {
-        Player player = event.getPlayer();
-
-        if (isThisRace(player)) {
-            if (player.getLocation().getBlockX() == event.getTo().getBlockX() && player.getLocation().getBlockZ() == event.getTo().getBlockZ()) {
-                return;
-            }
-
-            if (!player.isOnGround()|| player.isSwimming() || player.isInWater()) return;
-
-            player.playSound(player.getLocation(), Sound.ENTITY_HORSE_STEP, 0.3F, 1);
-        }
     }
 }

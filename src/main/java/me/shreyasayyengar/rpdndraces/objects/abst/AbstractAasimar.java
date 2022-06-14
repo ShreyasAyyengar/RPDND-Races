@@ -2,6 +2,7 @@ package me.shreyasayyengar.rpdndraces.objects.abst;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
+import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -46,6 +47,7 @@ public abstract class AbstractAasimar extends AbstractRace implements TaskedRace
                 player.getLocation().getNearbyPlayers(3.3).forEach(nearbyPlayer -> heal(nearbyPlayer));
                 heal(player);
                 player.getWorld().playSound(player.getLocation(), Sound.BLOCK_BEACON_AMBIENT, 1, 1);
+                player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &3You have healed those around you!"));
             }
         }.runTaskTimer(RacesPlugin.getInstance(), 0, 1200);
     }

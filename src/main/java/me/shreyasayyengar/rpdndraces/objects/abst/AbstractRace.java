@@ -1,17 +1,14 @@
 package me.shreyasayyengar.rpdndraces.objects.abst;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
-import me.shreyasayyengar.rpdndraces.events.HandSwap;
+import me.shreyasayyengar.rpdndraces.events.PlayerHandSwap;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.PassiveAbilities;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.TaskedRace;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -61,9 +58,8 @@ public abstract class AbstractRace implements Listener {
                     }
 
                     if (entry.getValue().getCooldownTime() == 0) {
-                        COOLDOWN_LIST.remove(entry.getKey());
-
                         entry.getValue().runUnsafeActions(() -> entry.getValue().player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYour " + entry.getValue().getName() + " cooldown has ended!")));
+                        COOLDOWN_LIST.remove(entry.getKey());
                     }
                 }
             }
@@ -176,7 +172,7 @@ public abstract class AbstractRace implements Listener {
      * should override this method to do perform specific actions when the player swaps their hand items. The {@link AbstractRace#player} variable can be used
      * unchecked in this method as they are not null when called by the event. <p></p>
      * Anything regarding cooldowns should <b>NOT be handled in this method</b>. Any data, countdowns or managers relating to cooldowns are managed directly
-     * within the {@link HandSwap} class, allowing for this method for the sole purpose of performing actions that are not related to cooldowns and more specifically
+     * within the {@link PlayerHandSwap} class, allowing for this method for the sole purpose of performing actions that are not related to cooldowns and more specifically
      * for the actual race.
      */
     public abstract void onSwap();
@@ -195,8 +191,13 @@ public abstract class AbstractRace implements Listener {
             player.getWorld().spawnParticle(Particle.SPELL_WITCH, player.getLocation().add(0, 0.5, 0), 5);
             Vector direction = player.getEyeLocation().getDirection().multiply(blocks).setY(0.5);
             Location directionLoc = player.getLocation().add(direction);
-            player.teleport(directionLoc);
-            player.getWorld().spawnParticle(Particle.SPELL_WITCH, player.getLocation().add(0, 0.5, 0), 5);
+
+            if (directionLoc.getBlock().getType() == Material.AIR) {
+                player.teleport(directionLoc);
+                player.getWorld().spawnParticle(Particle.SPELL_WITCH, player.getLocation().add(0, 0.5, 0), 5);
+            } else {
+                player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou cannot teleport forward!"));
+            }
         }
 
         public static void pushForward(Player player) {

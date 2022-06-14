@@ -3,6 +3,7 @@ package me.shreyasayyengar.rpdndraces.objects.races;
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.objects.interfaces.Glideable;
+import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -31,7 +32,7 @@ public class SimicHybrids extends AbstractRace implements Glideable {
     @Override
     public void onSwap() {
         if (player.isGliding()) {
-            player.sendMessage(RacesPlugin.PREFIX + " &cYou cannot boost yourself!");
+            player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYou cannot boost yourself!"));
         } else {
             player.setVelocity(new Vector(0, 1.5, 0));
 

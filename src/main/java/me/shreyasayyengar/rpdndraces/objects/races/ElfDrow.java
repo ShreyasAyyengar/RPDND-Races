@@ -35,9 +35,7 @@ public class ElfDrow extends AbstractElf {
             public void run() {
                 if (count == 0) cancel();
 
-                runUnsafeActions(() -> {
-                    spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, 2, 0));
-                });
+                runUnsafeActions(() -> spawnCircleParticle(Color.fromBGR(1, 1, 1), player.getLocation().clone().add(0, 2, 0)));
 
                 count--;
             }
@@ -47,8 +45,8 @@ public class ElfDrow extends AbstractElf {
     private void spawnCircleParticle(Color color, Location location) {
         for (int degree = 0; degree < 360; degree++) {
             double radians = Math.toRadians(degree);
-            double x = (1.5 * Math.cos(radians));
-            double z = (1.5 * Math.sin(radians));
+            double x = (2.5 * Math.cos(radians));
+            double z = (2.5 * Math.sin(radians));
             location.add(x, 0, z);
             location.getWorld().spawnParticle(Particle.REDSTONE.builder().color(Color.RED).count(50).particle(), location, 1, new Particle.DustOptions(color, 1));
             location.subtract(x, 0, z);

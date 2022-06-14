@@ -29,12 +29,17 @@ public class RaceManager {
     public static void removeRace(UUID uuid) {
         if (hasRace(uuid)) {
             RACE_MAP.get(uuid).onDisable();
+
+            if (RACE_MAP.get(uuid).getRegisteredTask() != null) {
+                RACE_MAP.get(uuid).getRegisteredTask().cancel();
+            }
+
             RACE_MAP.remove(uuid);
 
-            try {
-                RacesPlugin.getDatabase().preparedStatement("delete from races_info where uuid = '" + uuid + "';").executeUpdate();
+            try (PreparedStatement preparedStatement = RacesPlugin.getDatabase().preparedStatement("delete from races_info where uuid = '" + uuid + "';")) {
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         }
     }
@@ -45,38 +50,40 @@ public class RaceManager {
 
     public static void writeToSQL() throws SQLException {
 
-        PreparedStatement prepBuilder;
         for (UUID uuid : RACE_MAP.keySet()) {
 
             AbstractRace race = getRace(uuid);
 
             if (SQLUtils.hasRow(uuid)) {
-                prepBuilder = RacesPlugin.getDatabase().preparedStatement("update races_info set current_race = '" + race.getName() + "' where uuid = '" + uuid + "';");
+                try (PreparedStatement preparedStatement = RacesPlugin.getDatabase().preparedStatement("update races_info set current_race = '" + race.getName() + "' where uuid = '" + uuid + "';")) {
+                    preparedStatement.executeUpdate();
+                }
             } else {
-                prepBuilder = RacesPlugin.getDatabase().preparedStatement("insert into races_info (uuid, current_race) values ('" + uuid + "', '" + race.getName() + "');");
+                try (PreparedStatement preparedStatement = RacesPlugin.getDatabase().preparedStatement("insert into races_info (uuid, current_race) values ('" + uuid + "', '" + race.getName() + "');")) {
+                    preparedStatement.executeUpdate();
+                }
             }
-
-            prepBuilder.executeUpdate();
         }
     }
 
     public static void readFromSQL() throws SQLException {
 
-        ResultSet resultSet = RacesPlugin.getDatabase().preparedStatement("select * from races_info").executeQuery();
+        try (PreparedStatement preparedStatement = RacesPlugin.getDatabase().preparedStatement("select * from races_info")) {
+            ResultSet resultSet = preparedStatement.executeQuery();
 
-        while (resultSet.next()) {
+            while (resultSet.next()) {
 
-            UUID uuid = UUID.fromString(resultSet.getString("uuid"));
-            String race = resultSet.getString("current_race");
+                UUID uuid = UUID.fromString(resultSet.getString("uuid"));
+                String race = resultSet.getString("current_race");
 
-            if (race == null) return;
+                if (race == null) return;
 
-
-            try {
-                Class<?> subClasses = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + race.replace("-", ""));
-                subClasses.getDeclaredConstructor(UUID.class).newInstance(uuid);
-            } catch (ReflectiveOperationException x) {
-                x.printStackTrace();
+                try {
+                    Class<?> subClasses = Class.forName("me.shreyasayyengar.rpdndraces.objects.races." + race.replace("-", ""));
+                    subClasses.getDeclaredConstructor(UUID.class).newInstance(uuid);
+                } catch (ReflectiveOperationException x) {
+                    x.printStackTrace();
+                }
             }
         }
     }

@@ -18,7 +18,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.sql.SQLException;
 
-public class Join implements Listener {
+public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) throws SQLException {

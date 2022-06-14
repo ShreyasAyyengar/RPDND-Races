@@ -81,7 +81,7 @@ public class YuantiPureblood extends AbstractRace {
             player.getLocation().getNearbyLivingEntities(5, 5, 5, livingEntity -> !(livingEntity instanceof Monster)).forEach(passiveMob -> {
                 if (passiveMob.isLeashed()) return;
 
-                passiveMob.setLeashHolder(player);
+                passiveMob.setLeashHolder(player); // toggle onn and off and no leashes drops please todo
             });
         }
     }

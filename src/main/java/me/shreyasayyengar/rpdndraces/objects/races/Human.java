@@ -27,8 +27,8 @@ public class Human extends AbstractRace {
 
     @Override
     public void onSwap() {
-        RaceUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 2, 15);
-        RaceUtils.addPotionEffect(player, PotionEffectType.REGENERATION, 2, 15);
+        RaceUtils.addPotionEffect(player, PotionEffectType.INCREASE_DAMAGE, 15, 2);
+        RaceUtils.addPotionEffect(player, PotionEffectType.REGENERATION, 15, 2);
     }
 
     @Override

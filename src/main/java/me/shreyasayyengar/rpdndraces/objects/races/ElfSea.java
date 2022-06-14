@@ -49,7 +49,7 @@ public class ElfSea extends AbstractElf {
 
     @Override
     public int getRaceCooldown() {
-        return 10;
+        return 0;
     }
 
     @Override

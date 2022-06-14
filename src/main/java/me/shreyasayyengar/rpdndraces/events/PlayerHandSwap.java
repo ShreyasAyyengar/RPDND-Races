@@ -9,7 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
-public class HandSwap implements Listener {
+public class PlayerHandSwap implements Listener {
 
     @EventHandler
     private void onSwap(PlayerSwapHandItemsEvent event) {

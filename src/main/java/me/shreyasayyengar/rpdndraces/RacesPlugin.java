@@ -5,6 +5,7 @@ import me.shreyasayyengar.rpdndraces.commands.KenkuCommand;
 import me.shreyasayyengar.rpdndraces.commands.RaceCommand;
 import me.shreyasayyengar.rpdndraces.events.*;
 import me.shreyasayyengar.rpdndraces.menu.plugin.MenuManager;
+import me.shreyasayyengar.rpdndraces.menu.race.RaceMenuManager;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.utils.Config;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
@@ -25,6 +26,7 @@ public final class RacesPlugin extends JavaPlugin {
     private EffectManager effectManager;
     private MySQL database;
     private MenuManager menuManager;
+    private RaceMenuManager raceMenuManager;
 
     public static RacesPlugin getInstance() {
         return RacesPlugin.getPlugin(RacesPlugin.class);
@@ -42,6 +44,10 @@ public final class RacesPlugin extends JavaPlugin {
         return getInstance().effectManager;
     }
 
+    public static RaceMenuManager getRaceMenuManager() {
+        return getInstance().raceMenuManager;
+    }
+
     @Override
     public void onEnable() {
         this.getLogger().info(PREFIX + "Races Plugin Starting Up...");
@@ -57,6 +63,7 @@ public final class RacesPlugin extends JavaPlugin {
 
         this.menuManager = new MenuManager(this);
         this.effectManager = new EffectManager(this);
+        this.raceMenuManager = new RaceMenuManager();
 
         System.gc();
     }
@@ -68,13 +75,14 @@ public final class RacesPlugin extends JavaPlugin {
 
     private void registerEvents() {
         Stream.of(
-                new Join(),
-                new Leave(),
-                new HandSwap(),
-                new Interact(),
-                new PostRespawn(),
+                new PlayerJoin(),
+                new PlayerLeave(),
+                new PlayerHandSwap(),
+                new PlayerInteract(),
+                new PlayerMove(),
+                new PlayerPostRespawn(),
                 new FoodLevelChange(),
-                new ItemConsume(),
+                new PlayerItemConsume(),
                 new EntityGlide()
         ).forEach(event -> this.getServer().getPluginManager().registerEvents(event, this));
     }
@@ -158,7 +166,6 @@ public final class RacesPlugin extends JavaPlugin {
 }
 
 // TODO: find a fix for dupe code in Centaur, Satyr and Minotaur (create an interface with SpecialMovement?
-// TODO: Refactor Autoclosable try-with-resources for SQL queries
 
 /*
  TODO GENERAL TESTING

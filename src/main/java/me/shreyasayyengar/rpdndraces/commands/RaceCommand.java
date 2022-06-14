@@ -1,7 +1,6 @@
 package me.shreyasayyengar.rpdndraces.commands;
 
 import me.shreyasayyengar.rpdndraces.RacesPlugin;
-import me.shreyasayyengar.rpdndraces.menu.race.RaceMenuManager;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import me.shreyasayyengar.rpdndraces.utils.RaceManager;
 import me.shreyasayyengar.rpdndraces.utils.Utils;
@@ -28,7 +27,7 @@ public class RaceCommand implements CommandExecutor {
                 }
 
                 try {
-                    RaceMenuManager.openRacesMenu(player, 0);
+                    RacesPlugin.getRaceMenuManager().openRacesMenu(player, 0);
                 } catch (Exception x) {
                     x.printStackTrace();
                 }
@@ -64,7 +63,7 @@ public class RaceCommand implements CommandExecutor {
                         }
 
                         RaceManager.removeRace(target.getUniqueId());
-                        target.getActivePotionEffects().clear();
+                        target.getActivePotionEffects().clear(); // TODO not resetting
 
                         if (player.getUniqueId().equals(target.getUniqueId())) {
                             player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYour race has been &areset&c!"));

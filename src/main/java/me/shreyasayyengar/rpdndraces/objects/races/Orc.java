@@ -17,7 +17,7 @@ public class Orc extends AbstractRace implements PassiveAbilities {
 
     public static List<String> getItemLore() {
 
-        List<String> lore = List.of("Born tall and strong, orc society produces formidable, self-sufficient warriors that pursue their target with relentless endurance and aggression.");
+        List<String> lore = List.of("Born tall and strong, orc society produces formidable, self sufficient warriors that pursue their target with relentless endurance and aggression.");
         List<String> active = List.of("Ground Stomp");
         List<String> passive = List.of();
 

@@ -45,7 +45,7 @@ public class TieflingNormal extends AbstractTiefling {
             mob.getWorld().spawnParticle(Particle.REDSTONE.builder().color(Color.RED).count(1).particle(), mob.getLocation().clone().add(0, 1, 0), 15, new Particle.DustOptions(Color.RED, 1));
         }
 
-        mob.damage(4, player);
+        mob.damage(6, player);
     }
 
     @Override

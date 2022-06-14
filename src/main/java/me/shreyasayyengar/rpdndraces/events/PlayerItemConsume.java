@@ -10,7 +10,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 import java.util.UUID;
 
-public class ItemConsume implements Listener {
+public class PlayerItemConsume implements Listener {
 
     @EventHandler
     public void onPlayerItemConsume(PlayerItemConsumeEvent event) {

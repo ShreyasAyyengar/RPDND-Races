@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-public class PostRespawn implements Listener {
+public class PlayerPostRespawn implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerPostRespawnEvent event) {
