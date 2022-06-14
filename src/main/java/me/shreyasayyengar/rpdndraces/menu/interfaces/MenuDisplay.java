@@ -39,18 +39,6 @@ public interface MenuDisplay {
 
     @NotNull Optional<MenuCloseCallback> getCloseCallback();
 
-    void decorate(@NotNull String... lines);
-
-    /**
-     * Sets the item to said index slot
-     *
-     * @param slot - slot
-     * @param item - item
-     */
-    default void setContent(int slot, @NotNull MenuItem item) {
-        getContents().put(slot, item);
-    }
-
     final class DisplayBuilder {
 
         private final MenuDisplay display;

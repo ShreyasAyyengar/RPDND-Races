@@ -133,13 +133,12 @@ public final class RacesPlugin extends JavaPlugin {
                     sortedAbstRaces.add(raceClass);
                 }
             });
-            allRaces.forEach(raceClass -> {
-                sortedAbstRaces.forEach(abstRaceClass -> {
-                    if (abstRaceClass.isAssignableFrom(raceClass) && !raceClass.getSimpleName().equalsIgnoreCase(abstRaceClass.getSimpleName())) {
-                        classesToRemove.add(raceClass);
-                    }
-                });
-            });
+
+            allRaces.forEach(raceClass -> sortedAbstRaces.forEach(abstRaceClass -> {
+                if (abstRaceClass.isAssignableFrom(raceClass) && !raceClass.getSimpleName().equalsIgnoreCase(abstRaceClass.getSimpleName())) {
+                    classesToRemove.add(raceClass);
+                }
+            }));
 
             allRaces.removeAll(classesToRemove);
             allRaces.sort(Comparator.comparing(aClass -> aClass.getSimpleName().toLowerCase()));
@@ -165,9 +164,4 @@ public final class RacesPlugin extends JavaPlugin {
 
 }
 
-// TODO: find a fix for dupe code in Centaur, Satyr and Minotaur (create an interface with SpecialMovement?
-
-/*
- TODO GENERAL TESTING
-  - Fix all these console errors
- */
+// TODO: ConcurrentModificationException somewhere idk where bruh

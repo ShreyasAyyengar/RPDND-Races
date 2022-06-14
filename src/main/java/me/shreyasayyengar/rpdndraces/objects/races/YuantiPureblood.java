@@ -1,12 +1,16 @@
 package me.shreyasayyengar.rpdndraces.objects.races;
 
+import me.shreyasayyengar.rpdndraces.RacesPlugin;
 import me.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
+import me.shreyasayyengar.rpdndraces.utils.Utils;
 import org.bukkit.Sound;
+import org.bukkit.entity.LeashHitch;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerUnleashEntityEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.List;
@@ -38,6 +42,8 @@ public class YuantiPureblood extends AbstractRace {
             player.removePotionEffect(PotionEffectType.NIGHT_VISION);
             enabled = false;
         }
+
+        player.sendMessage(enabled ? Utils.colourise(RacesPlugin.PREFIX + " &aActivated &eAnimal Charm!") : Utils.colourise(RacesPlugin.PREFIX + " &cDeactivated &eAnimal Charm!"));
     }
 
     @Override
@@ -75,14 +81,26 @@ public class YuantiPureblood extends AbstractRace {
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
+
+        if (!enabled) return;
+
         Player player = event.getPlayer();
 
         if (isThisRace(player)) {
             player.getLocation().getNearbyLivingEntities(5, 5, 5, livingEntity -> !(livingEntity instanceof Monster)).forEach(passiveMob -> {
                 if (passiveMob.isLeashed()) return;
 
-                passiveMob.setLeashHolder(player); // toggle onn and off and no leashes drops please todo
+                passiveMob.setLeashHolder(player);
             });
         }
+    }
+
+    @EventHandler
+    public void onPlayerUnleashEntity(PlayerUnleashEntityEvent event) {
+        event.getPlayer().getNearbyEntities(5, 5, 5).forEach(entity -> {
+            if (entity instanceof LeashHitch) {
+                entity.remove();
+            }
+        });
     }
 }

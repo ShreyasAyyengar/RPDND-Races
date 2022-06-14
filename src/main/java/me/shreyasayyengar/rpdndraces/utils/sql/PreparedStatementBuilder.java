@@ -45,8 +45,6 @@ public class PreparedStatementBuilder {
     }
 
     public PreparedStatement build() {
-
-        Integer.valueOf(2);
         return this.theStatement;
     }
 

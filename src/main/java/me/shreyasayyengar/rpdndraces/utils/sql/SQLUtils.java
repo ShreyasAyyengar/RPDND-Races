@@ -28,18 +28,4 @@ public class SQLUtils {
             preparedStatement.executeUpdate();
         }
     }
-
-    public static String getRace(UUID uuid) throws SQLException {
-
-        try (PreparedStatement preparedStatement = RacesPlugin.getDatabase().preparedStatement("select * from races_info where uuid = '" + uuid + "';")) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-
-            if (resultSet.getString("current_race") == null || resultSet.getString("current_race").isEmpty()) {
-                return "";
-            }
-
-            return resultSet.getString("current_race");
-        }
-    }
 }

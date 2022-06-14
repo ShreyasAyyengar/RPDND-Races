@@ -33,7 +33,4 @@ public class SimpleDisplay implements MenuDisplay {
         return Optional.empty();
     }
 
-    @Override
-    public void decorate(@NotNull String... lines) {
-    }
 }

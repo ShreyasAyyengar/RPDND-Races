@@ -209,6 +209,31 @@ public abstract class AbstractRace implements Listener {
             player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation().add(0, 0.5, 0), 15, blockData);
         }
 
+        public static void stomp(Player player) {
+            player.setVelocity(player.getVelocity().add(new Vector(0, 1.2, 0)));
+
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    player.setVelocity(player.getVelocity().subtract(new Vector(0, 2, 0)));
+
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if (player.isOnGround()) {
+
+                                BlockData blockData = player.getLocation().getBlock().getBlockData();
+                                player.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, player.getLocation(), 50, 1, 1, 1, 0.1);
+                                player.getWorld().spawnParticle(Particle.BLOCK_DUST, player.getLocation(), 100, 1, 1, 1, blockData);
+                                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_GUARDIAN_HURT, 1, 1);
+                                cancel();
+                            }
+                        }
+                    }.runTaskTimer(RacesPlugin.getInstance(), 0, 1);
+                }
+            }.runTaskLater(RacesPlugin.getInstance(), 10);
+        }
+
         public static void startGliding(Player player) {
             if (!player.isGliding()) {
                 player.setVelocity(player.getVelocity().add(new Vector(0, 3, 0)));

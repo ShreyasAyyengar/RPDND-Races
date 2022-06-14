@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.UUID;
@@ -63,7 +64,9 @@ public class RaceCommand implements CommandExecutor {
                         }
 
                         RaceManager.removeRace(target.getUniqueId());
-                        target.getActivePotionEffects().clear(); // TODO not resetting
+                        for (PotionEffect activePotionEffect : target.getActivePotionEffects()) {
+                            target.removePotionEffect(activePotionEffect.getType());
+                        }
 
                         if (player.getUniqueId().equals(target.getUniqueId())) {
                             player.sendMessage(Utils.colourise(RacesPlugin.PREFIX + " &cYour race has been &areset&c!"));

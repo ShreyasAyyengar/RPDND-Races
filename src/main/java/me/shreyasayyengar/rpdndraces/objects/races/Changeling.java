@@ -21,7 +21,6 @@ import java.util.*;
 public class Changeling extends AbstractRace {
 
     public static final Collection<UUID> TO_REMOVE = new ArrayList<>();
-
     private static final Map<UUID, Integer> DISGUISES_MAP = new HashMap<>();
 
     public static List<String> getItemLore() {
@@ -36,11 +35,7 @@ public class Changeling extends AbstractRace {
     public Changeling(UUID uuid) {
         super(uuid);
 
-        boolean isLooping = false;
-        if (!isLooping) {
-            checkDisguises();
-            isLooping = true;
-        }
+        checkDisguises();
     }
 
     private void checkDisguises() {
