@@ -11,3 +11,9 @@ commands:
     aliases:
       - races
       - shreyaswtf
+
+  kenku:
+    aliases:
+      - cry
+      - k
+      - kenkurace
