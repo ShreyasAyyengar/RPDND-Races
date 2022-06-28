@@ -15,7 +15,4 @@ public class Config {
     public static String getSQL(String path) {
         return main.getConfig().getString("MySQL." + path);
     }
-
-
-
 }
