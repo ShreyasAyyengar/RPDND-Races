@@ -1,19 +1,13 @@
-name: RPDNDRaces
+name: RPDND-Races
 version: '${project.version}'
-main: me.shreyasayyengar.rpdndraces.RacesPlugin
-api-version: 1.13
-prefix: RPDNDRaces
+main: dev.shreyasayyengar.rpdndraces.RacesPlugin
+api-version: 1.18
+prefix: RPDND-Races
 author: Shreyas Ayyengar
+description: The DND Races plugin used on play.rpdnd.com
 
 commands:
-  races:
+  race:
     aliases:
-      - race
-  kenku:
-    aliases:
-      - cry
-      - k
-      - kenkurace
-
-
-
+      - races
+      - shreyaswtf
