@@ -90,16 +90,10 @@ public final class RacesPlugin extends JavaPlugin {
     private void initMySQL() {
         this.database = new MySQL(Config.getSQL("username"), Config.getSQL("password"), Config.getSQL("database"), Config.getSQL("host"), Integer.parseInt(Config.getSQL("port")));
 
-        try {
-            //noinspection resource
-            this.database.preparedStatement("create table if not exists rpdnd_races(" +
-                    "    uuid         varchar(36) null," +
-                    "    current_race tinytext    null" +
-                    ");").executeUpdate();
-        } catch (SQLException e) {
-            getLogger().severe("There was an issue creating MySQL tables, please send this error for support\n" + e.getMessage());
-            e.printStackTrace();
-        }
+        this.database.preparedStatementBuilder("create table if not exists rpdnd_races(" +
+                "    uuid         varchar(36) null," +
+                "    current_race tinytext    null" +
+                ");").executeUpdate();
     }
 
     private void loadRaces() {

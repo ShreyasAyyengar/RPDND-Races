@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -22,19 +21,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class RaceMenuManager {
 
-    private final List<Material> MATERIALS = Arrays.stream(Material.values()).filter(material -> material.name().contains("SPAWN_EGG")).toList();
-    private final List<Class<?>> CLEAN_RACES_CLASSES = RacesPlugin.getInstance().getCleanRaces();
-    private final List<Class<?>> ALL_RACE_CLASSES;
+    private final List<Material> materials = Arrays.stream(Material.values()).filter(material -> material.name().contains("SPAWN_EGG")).toList();
+    private final List<Class<?>> cleanRaceClasses = RacesPlugin.getInstance().getCleanRaces();
+    private final List<Class<?>> allRaceClasses;
 
-    private final List<Integer> CORNERS = List.of(0, 1, 7, 8, 9, 17, 36, 44, 45, 46, 52, 53);
-    private final List<Integer> ALLOWED_SLOTS = List.of(11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32, 33, 38, 39, 40, 41, 42);
-    private final List<Integer> SUBRACE_PLACEMENT = List.of(13, 31, 21, 23, 20, 24);
+    private final List<Integer> corners = List.of(0, 1, 7, 8, 9, 17, 36, 44, 45, 46, 52, 53);
+    private final List<Integer> allowedSlots = List.of(11, 12, 13, 14, 15, 20, 21, 22, 23, 24, 29, 30, 31, 32, 33, 38, 39, 40, 41, 42);
+    private final List<Integer> subracePlacement = List.of(13, 31, 21, 23, 20, 24);
 
     {
         try {
-            ALL_RACE_CLASSES = Utils.getClassesForPackage("dev.shreyasayyengar.rpdndraces.objects.races").stream()
+            allRaceClasses = Utils.getClassesForPackage("dev.shreyasayyengar.rpdndraces.objects.races").stream()
                     .filter(AbstractRace.class::isAssignableFrom)
                     .toList();
         } catch (IOException | URISyntaxException e) {
@@ -74,18 +74,18 @@ public class RaceMenuManager {
         int j = 0;
         for (int i = 11; i < 43; i++) {
 
-            if (!ALLOWED_SLOTS.contains(i)) {
+            if (!allowedSlots.contains(i)) {
                 continue;
             }
 
-            List<Class<?>> concentratedClasses = new ArrayList<>(CLEAN_RACES_CLASSES.subList(20 * pageComingFrom, CLEAN_RACES_CLASSES.size())); // Contains the races needed only for the GUi
+            List<Class<?>> concentratedClasses = new ArrayList<>(cleanRaceClasses.subList(20 * pageComingFrom, cleanRaceClasses.size())); // Contains the races needed only for the GUi
 
             if (j >= concentratedClasses.size()) continue;
 
             Class<?> raceClass = concentratedClasses.get(j);
             String presentableName = StringUtils.capitalize(StringUtils.join(StringUtils.splitByCharacterTypeCamelCase(raceClass.getSimpleName()), " ")).replace("Abstract ", "");
 
-            ItemStack raceItem = new ItemStack(MATERIALS.get(j));
+            ItemStack raceItem = new ItemStack(materials.get(j));
             ItemMeta itemMeta = raceItem.getItemMeta();
             itemMeta.setDisplayName(Utils.colourise("&6&l" + presentableName));
             itemMeta.setLore((List<String>) raceClass.getMethod("getItemLore").invoke(null));
@@ -102,7 +102,7 @@ public class RaceMenuManager {
                 if (clickedItem.getItemMeta().getLocalizedName().toLowerCase().contains("abstract")) {
 
                     Class<?> abstractClass = SubRace.valueOf(clickedItem.getItemMeta().getLocalizedName().replace("rpdndraces.Abstract", "").toUpperCase()).getAbstractClass();
-                    List<Class<?>> subRaceClasses = ALL_RACE_CLASSES.stream().filter(abstractClass::isAssignableFrom).toList();
+                    List<Class<?>> subRaceClasses = allRaceClasses.stream().filter(abstractClass::isAssignableFrom).toList();
 
                     try {
                         buildSubraceMenu(player, subRaceClasses);
@@ -129,7 +129,7 @@ public class RaceMenuManager {
 
         menu.set(50, new MenuItem(nextPage(), (whoClicked, menuItem, clickType) -> {
             try {
-                if (20 * (pageComingFrom + 1) < CLEAN_RACES_CLASSES.size()) {
+                if (20 * (pageComingFrom + 1) < cleanRaceClasses.size()) {
                     openRacesMenu(player, pageComingFrom + 1);
                 }
             } catch (Exception e) {
@@ -145,13 +145,13 @@ public class RaceMenuManager {
 
         MenuDisplay.DisplayBuilder menu = MenuDisplay.create("&0&l&kD&r&9&l Choose your Sub-race &0&l&kD");
 
-        for (Integer slot : CORNERS) {
+        for (Integer slot : corners) {
             menu.set(slot, new MenuItem(blue(), (whoClicked, menuItem, clickType) -> {
             }));
         }
 
         for (int i = 0; i < subRaceClasses.size(); i++) {
-            ItemStack raceItem = new ItemStack(MATERIALS.get(i));
+            ItemStack raceItem = new ItemStack(materials.get(i));
             ItemMeta itemMeta = raceItem.getItemMeta();
 
             Class<?> raceClass = subRaceClasses.get(i);
@@ -162,7 +162,7 @@ public class RaceMenuManager {
             itemMeta.setLocalizedName("rpdndraces." + raceClass.getSimpleName());
             raceItem.setItemMeta(itemMeta);
 
-            menu.set(SUBRACE_PLACEMENT.get(i), new MenuItem(raceItem, (whoClicked, menuItem, clickType) -> {
+            menu.set(subracePlacement.get(i), new MenuItem(raceItem, (whoClicked, menuItem, clickType) -> {
                 String chosenRace = menuItem.getItemStack().getItemMeta().getLocalizedName().split("\\.")[1];
                 Utils.handleSelection(whoClicked, chosenRace);
             }));
@@ -199,7 +199,6 @@ public class RaceMenuManager {
         return stack;
     }
 
-    @NotNull
     private ItemStack filler(ItemStack stack) {
         stack.addUnsafeEnchantment(Enchantment.DAMAGE_ARTHROPODS, 1);
         ItemMeta itemMeta = stack.getItemMeta();

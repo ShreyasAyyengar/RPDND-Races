@@ -1,6 +1,5 @@
 package dev.shreyasayyengar.rpdndraces.events;
 
-import me.libraryaddict.disguise.DisguiseAPI;
 import dev.shreyasayyengar.rpdndraces.RacesPlugin;
 import dev.shreyasayyengar.rpdndraces.objects.abst.AbstractRace;
 import dev.shreyasayyengar.rpdndraces.objects.interfaces.Appetitless;
@@ -10,18 +9,17 @@ import dev.shreyasayyengar.rpdndraces.objects.races.Changeling;
 import dev.shreyasayyengar.rpdndraces.utils.RaceManager;
 import dev.shreyasayyengar.rpdndraces.utils.Utils;
 import dev.shreyasayyengar.rpdndraces.utils.sql.SQLUtils;
+import me.libraryaddict.disguise.DisguiseAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.sql.SQLException;
-
 public class PlayerJoin implements Listener {
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) throws SQLException {
+    public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
         if (!SQLUtils.hasRow(player.getUniqueId())) {
